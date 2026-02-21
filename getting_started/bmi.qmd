@@ -199,7 +199,7 @@ bmi_15_and_below_id <- c("Patient 16")
 
 bmi_dataset |> 
   pointblank::col_vals_gte(
-    columns = "bmi_gpscad",
+    columns = c("BMI"),
     preconditions = \(x) {
       x |> 
         dplyr::filter(
@@ -210,7 +210,7 @@ bmi_dataset |>
     na_pass = TRUE
   ) |> 
   pointblank::col_vals_lte(
-    columns = "bmi_gpscad",
+    columns = c("BMI"),
     preconditions = \(x) {
       x |> 
         dplyr::filter(
