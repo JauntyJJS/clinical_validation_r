@@ -1,0 +1,176 @@
+---
+title: Introduction
+subtitle: A simple `pointblank` tutorial
+toc: true
+format: live-html
+engine: knitr
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| include: false
+#| envir: introduction
+#| label: set expression
+
+# So that we can print pointblank results to the screen
+options(expressions=10000)
+```
+
+The [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"} package provides a wide range of validation rules that we can use to check our data.
+
+Consider this data set `age_dataset` consisting of the patient's age printed using [`reactable`](https://glin.github.io/reactable/){target="_blank"}.
+
+```{webr}
+#| envir: introduction
+#| label: small age data set
+#| echo: false
+
+age_dataset <- tibble::tribble(
+  ~`Patient ID`, ~`Age`, ~`Age Invalid`,
+    "Patient 1",     69,           -1,
+    "Patient 2",     39,           0,
+    "Patient 3",     10,           10,   
+    "Patient 4",     46,           46,
+    "Patient 5",     81,           81,
+    "Patient 6",     21,           21
+)
+
+reactable::reactable(age_dataset)
+
+```
+
+## Check if positive
+
+We start by validating if the column `Age` is positive. We can use the function [`col_vals_gt()`](https://rstudio.github.io/pointblank/reference/col_vals_gt.html){target="_blank"} to do that.
+
+In the code below, we check if the column `Age` is greater than 0 (a positive number).
+When there are no issues, the data set will be returned.
+
+```{webr}
+#| envir: introduction
+#| label: small age data set validate age is positive
+
+age_dataset |> 
+  pointblank::col_vals_gt(
+    columns = c("Age"),
+    value = 0
+  )
+
+```
+
+This gives us the leverage to carry on with the data pipeline, such as changing the name of a column.
+
+```{webr}
+#| envir: introduction
+#| label: small age data set validate age is positive continue
+
+age_dataset |> 
+  pointblank::col_vals_gt(
+    columns = c("Age"),
+    value = 0
+  ) |> 
+  dplyr::rename(
+    `Age_Years` = "Age"
+  )
+
+```
+
+Here is the example when we validate column `Age Invalid` which has at least one non-positive row. In this case, an error will be provided, indicating how many rows do not meet the criteria.
+
+```{webr}
+#| envir: introduction
+#| label: small age data set validate age invalid
+#| autorun: true
+
+age_dataset |> 
+  pointblank::col_vals_gt(
+    columns = c("Age Invalid"),
+    value = 0
+  )
+
+```
+
+## Pointblank workflow (Simplified)
+
+In practice, you may have to identify the rows that fails the validation test and send them to your collaborators for clarification. This is how it can be done in three main steps.
+
+We first create an `agent` object using the function [`create_agent()`](https://rstudio.github.io/pointblank/reference/create_agent.html){target="_blank"} on `age_dataset`. Next, we assign the agent a validation plan using validation functions such as [`col_vals_gt()`](https://rstudio.github.io/pointblank/reference/col_vals_gt.html){target="_blank"}. Lastly, we run the function [`interrogate()`](https://rstudio.github.io/pointblank/reference/interrogate.html){target="_blank"} for the agent to run the validation plan and gather some information.
+
+Once the `agent` has finished the validation, it can be printed in the Viewer.
+
+```{webr}
+#| envir: introduction
+#| label: small age data set create agent
+#| fig-width: 7
+#| autorun: true
+
+agent <- age_dataset |> 
+  pointblank::create_agent(
+    tbl_name = "Age Dataset",
+    label = "Age Dataset Vaidation"
+  ) |> 
+  pointblank::col_vals_gt(
+    columns = c("Age", "Age Invalid"),
+    value = 0
+  ) |> 
+  pointblank::interrogate()
+
+agent
+```
+
+We can use the [`get_agent_report()`](https://rstudio.github.io/pointblank/reference/get_agent_report.html){target="_blank"} function to further customise the report display.
+
+```{webr}
+#| envir: introduction
+#| label: small age data set report agent
+
+agent |> 
+  pointblank::get_agent_report(
+    title = "Validation of `age_dataset`",
+    size = "small"
+  )
+
+```
+
+You can identify rows in the data that fail a validation step by clicking on the `CSV` button located at the last (`EXT`) column.
+
+## Post validation workflow (Simplified)
+
+We can extract the row data that didn't pass a specific row-based validation steps with the [`get_data_extracts()`](https://rstudio.github.io/pointblank/reference/get_data_extracts.html){target="_blank"} function. The input `i = 2` means we are only looking at data that failed during Step 2 (which is validating if the values in column `Age Invalid` is greater than 0).
+
+```{webr}
+#| envir: introduction
+#| label: small age data set extract failed rows
+
+agent |> 
+  pointblank::get_data_extracts(
+    i = 2
+  )
+```
+
+After data validation, you may want to split the data that pass and fail the validation plan into two separate groups. This can be done using the function [`get_sundered_data()`](https://rstudio.github.io/pointblank/reference/get_sundered_data.html){target="_blank"}
+
+```{webr}
+#| envir: introduction
+#| label: small age data see pass
+
+agent |> 
+  pointblank::get_sundered_data(
+    type = "pass"
+  )
+
+```
+
+```{webr}
+#| envir: introduction
+#| label: small age data see fail
+
+agent |> 
+  pointblank::get_sundered_data(
+    type = "fail"
+  )
+
+```
+
+This ends our introduction. Check out the other chapters to see how more complicated data validation can be done.

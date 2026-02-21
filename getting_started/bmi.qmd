@@ -1,0 +1,238 @@
+---
+title: Validating BMI
+subtitle: Dealing with missing data and exceptions
+format: live-html
+engine: knitr
+toc: true
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| include: false
+#| envir: bmi
+#| label: set expression
+
+# So that we can print pointblank results to the screen
+options(expressions=10000)
+```
+
+Consider this data set `bmi_dataset` consisting of the patient's bmi printed using [`reactable`](https://glin.github.io/reactable/){target="_blank"}.
+
+```{webr}
+#| envir: bmi
+#| label: small bmi data set
+#| echo: false
+
+bmi_dataset <- tibble::tribble(
+  ~`Patient ID`, ~`BMI`,
+    "Patient 1" , 23.5,          
+    "Patient 2" , 19.2,        
+    "Patient 3" , 28.4,             
+    "Patient 4" , 22.0,          
+    "Patient 5" , 19.4,          
+    "Patient 6" , 22.3,
+    "Patient 7" , 36.8,          
+    "Patient 8" , 16.6,        
+    "Patient 9" , 25.8,             
+    "Patient 10", 18.9,          
+    "Patient 11", 23.9,          
+    "Patient 12", NA,
+    "Patient 13", NA,          
+    "Patient 14", 55.4,          
+    "Patient 15", 15,
+    "Patient 16", 13.2,          
+    "Patient 17", 50
+)
+
+reactable::reactable(
+  bmi_dataset,
+  defaultPageSize = 5
+)
+
+```
+
+## Check if positive again
+
+Again, we can start by validating if the column `BMI` is positive by using use the function [`col_vals_gt()`](https://rstudio.github.io/pointblank/reference/col_vals_gt.html){target="_blank"}.
+
+However, this time, we have an error.
+
+```{webr}
+#| envir: bmi
+#| label: validate bmi invalid due to missing values
+#| autorun: true
+
+bmi_dataset |> 
+  pointblank::col_vals_gt(
+    columns = c("BMI"),
+    value = 0
+  )
+
+```
+
+When we isolate the rows that fail the validation, we can see that the cause of this error was due to missing values.
+
+```{webr}
+#| envir: bmi
+#| label: isolate bmi missing data
+#| autorun: false
+
+bmi_dataset |> 
+  pointblank::create_agent(
+    tbl_name = "BMI Dataset",
+    label = "BMI Dataset Vaidation"
+  ) |> 
+  pointblank::col_vals_gt(
+    columns = c("BMI"),
+    value = 0
+  ) |> 
+  pointblank::interrogate() |> 
+  pointblank::get_sundered_data(
+    type = "fail"
+  )
+
+```
+
+Sometimes, we want to keep the data despite having missing values. As such, we can set the parameter `na_pass = TRUE` to allow validation workflow to bypass rows with missing values.
+
+Here is how it is done.
+
+```{webr}
+#| envir: bmi
+#| label: validate bmi with missing values
+#| autorun: false
+
+bmi_dataset |> 
+  pointblank::col_vals_gt(
+    columns = c("BMI"),
+    value = 0,
+    na_pass = TRUE
+  )
+
+```
+
+## Check if between two specific values
+
+In reality, we will want to verify if the patient's BMI is between two values (say 10 to 50 for example). We will isolate patients that do not meet this criteria for verification if the values are valid or not.
+
+In this case, we can use the function [`col_vals_between`](https://rstudio.github.io/pointblank/reference/col_vals_between.html){target="_blank"} instead. Instead of the parameter `value`, we have three additional variables (`left`, `right` and `inclusive`) that we can use to determine the range. The input `inclusive` is a two-element logical (TRUE or FALSE) vector that indicates whether the left and right bounds should be inclusive. In our example below, we set `inclusive = (TRUE, TRUE)` as we want to include the lower and upper bound.
+
+Remember to set the parameter `na_pass = TRUE` to ignore the missing values.
+
+```{webr}
+#| envir: bmi
+#| label: isolate bmi extreme data
+#| autorun: false
+
+bmi_dataset |> 
+  pointblank::create_agent(
+    tbl_name = "BMI Dataset",
+    label = "BMI Dataset Vaidation"
+  ) |> 
+  pointblank::col_vals_between(
+    columns = c("BMI"),
+    left = 15,
+    right = 50,
+    inclusive = c(TRUE, TRUE),
+    na_pass = TRUE
+  ) |> 
+  pointblank::interrogate() |> 
+  pointblank::get_sundered_data(
+    type = "fail"
+  )
+
+```
+
+Here we can see that `Patient 14` has BMI of over 50 and `Patient 16` has BMI of less than 15. 
+
+## Creating exceptions using `preconditions`
+
+Suppose that we have verified `Patient 14` and `Patient 16` and it turns out that these values are true. This means that in our validation steps, we have to omit these two patients as well.
+
+Such exceptions can be done using the `preconditions` parameter. This special parameter accepts expression for changing the input table before proceeding with a particular validation step. Changes can include filtering of rows, adding new columns via joining with another data set or creating a new calculating column from other columns.
+
+For this example, we set the precondition parameters to keep patients who are neither in the `bmi_50_and_above_id` nor `bmi_15_and_below_id` groups.
+
+```{webr}
+#| envir: bmi
+#| label: bmi validation with preconditions
+#| autorun: false
+
+bmi_50_and_above_id <- c("Patient 14")
+bmi_15_and_below_id <- c("Patient 16")
+
+bmi_dataset |> 
+  pointblank::col_vals_between(
+    columns = c("BMI"),
+    preconditions = \(x) {
+      x |> 
+        dplyr::filter(
+          !.data[["Patient ID"]] %in% 
+            c(bmi_15_and_below_id, bmi_50_and_above_id)
+        )
+    },
+    left = 15,
+    right = 50,
+    inclusive = c(TRUE, TRUE),
+    na_pass = TRUE
+  )
+
+```
+
+## A more thorough validation
+
+A more thorough (and robust against changes in updated version of data sets) approach is to also verify if these patients in the `bmi_50_and_above_id` or `bmi_15_and_below_id` groups are equal to or above 50 and equal to or below 15 respectively. 
+
+We can do this using the [`col_vals_gte`](https://rstudio.github.io/pointblank/reference/col_vals_gte.html){target="_blank"} and [`col_vals_lte`](https://rstudio.github.io/pointblank/reference/col_vals_lte.html){target="_blank"} with the corresponding `preconditions` parameters.
+
+*  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_50_and_above_id))}` for `col_vals_gte` 
+*  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_10_and_above_id))}` for `col_vals_lte`
+
+```{webr}
+#| envir: bmi
+#| label: a more complete bmi validation
+#| autorun: false
+
+bmi_50_and_above_id <- c("Patient 14")
+bmi_15_and_below_id <- c("Patient 16")
+
+bmi_dataset |> 
+  pointblank::col_vals_gte(
+    columns = "bmi_gpscad",
+    preconditions = \(x) {
+      x |> 
+        dplyr::filter(
+          .data[["Patient ID"]] %in% c(bmi_50_and_above_id)
+        )
+    },
+    value = 50,
+    na_pass = TRUE
+  ) |> 
+  pointblank::col_vals_lte(
+    columns = "bmi_gpscad",
+    preconditions = \(x) {
+      x |> 
+        dplyr::filter(
+          .data[["Patient ID"]] %in% c(bmi_15_and_below_id)
+        )
+    },
+    value = 15,
+    na_pass = TRUE
+  ) |> 
+  pointblank::col_vals_between(
+    columns = c("BMI"),
+    preconditions = \(x) {
+      x |> 
+        dplyr::filter(
+          !.data[["Patient ID"]] %in% 
+            c(bmi_15_and_below_id, bmi_50_and_above_id)
+        )
+    },
+    left = 15,
+    right = 50,
+    inclusive = c(TRUE, TRUE),
+    na_pass = TRUE
+  )
+
+```

@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+  
+execute:
+  freeze: false
+
+website:
+  page-navigation: true
+  title: "Clinical Data Validation in R"
+  description: A guide on how to do clinical data validation using some R packages.
+  sidebar:
+    logo: "images/image.jpg"
+    background: "#F5F5F5"
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: Welcome
+        contents:
+          - getting_started/introduction.qmd
+          - getting_started/bmi.qmd
+    
+format:
+  html:
+    toc: true
+    # theme:
+    #   light: cosmo
+    #   dark: darkly
+    backgroundcolor: "#F5F5F5"
+      
+webr:
+  packages:
+    - sessioninfo
+    - fs
+    # - quarto
+    - tibble
+    - dplyr
+    - tidyr
+    # - forcats
+    # - glue
+    # - readxl
+    - reactable
+    - pointblank
+
+

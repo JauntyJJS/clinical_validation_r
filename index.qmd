@@ -1,0 +1,104 @@
+---
+title: "Clinical Data Validation in R"
+subtitle: "A guide on how to do clinical data validation using some R packages."
+author: "Jeremy Selva"
+format: live-html
+engine: knitr
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Preface {.unnumbered}
+
+This book provides structured examples of ways to do clinical data validation using some R packages such as [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"}.
+
+## Who is this for?
+
+This is not a beginner's introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.
+
+## R Packages Used
+
+Here are the R packages used in this website.
+
+```{webr}
+#| label: R packages used
+#| message: false
+#| echo: false
+
+r_package_table <- sessioninfo::package_info()
+rownames(r_package_table) <- NULL
+
+r_package_table <- r_package_table |>
+  tibble::as_tibble() |>
+  dplyr::mutate(
+    version = ifelse(
+      is.na(r_package_table$loadedversion),
+      r_package_table$ondiskversion,
+      r_package_table$loadedversion)
+  ) |>
+  dplyr::filter(.data[["attached"]] == TRUE) |>
+  dplyr::select(
+    dplyr::any_of(
+      c("package", "version", "date", "source")
+    )
+  )
+
+reactable::reactable(
+  r_package_table,
+  defaultPageSize = 5
+)
+
+```
+
+## R Platform Information
+
+Here are the R platform environment used in this analysis.
+
+```{webr}
+#| label: R platform used
+#| echo: false
+
+get_knitr_version <- function() {
+
+  knitr_info <- "NA"
+
+  r_package_table <- sessioninfo::package_info(
+    pkgs = c("installed")
+  ) |>
+    dplyr::filter(.data[["package"]] == "knitr")
+
+  if (nrow(r_package_table) == 1) {
+
+    knitr_version <- r_package_table$loadedversion[1]
+    knitr_source <- r_package_table$source[1]
+
+    knitr_info <- paste0(
+      knitr_version, " from ",
+      knitr_source)
+  }
+
+  return(knitr_info)
+
+}
+
+r_platform_table <- suppressWarnings(sessioninfo::platform_info())
+r_platform_table[["knitr"]] <- get_knitr_version()[1]
+
+r_platform_table <- data.frame(
+  setting = names(r_platform_table),
+  value = unlist(r_platform_table,
+                 use.names = FALSE),
+  stringsAsFactors = FALSE
+)
+
+
+reactable::reactable(
+  r_platform_table,
+  defaultPageSize = 5
+)
+```
+
+## Credit
+
+[Photo](https://stocksnap.io/photo/notepad-notebook-RMLFV5PVU9){target="_blank"} by [Dariusz Sankowski](https://stocksnap.io/author/16700){target="_blank"} on [StockSnap](https://stocksnap.io).
+
