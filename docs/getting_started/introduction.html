@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../getting_started/bmi.html" rel="next">
+<link href="../getting_started/treatment_control.html" rel="next">
 <link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -87,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../getting_started/introduction.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Clinical Data Validation in R</a></li><li class="breadcrumb-item"><a href="../getting_started/introduction.html">Introduction</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -116,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
+ <span class="menu-text">Clinical Data Validation in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -126,6 +126,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../getting_started/introduction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../getting_started/treatment_control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validating Treatment Groupings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -155,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Welcome</a></li><li class="breadcrumb-item"><a href="../getting_started/introduction.html">Introduction</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Clinical Data Validation in R</a></li><li class="breadcrumb-item"><a href="../getting_started/introduction.html">Introduction</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Introduction</h1>
 <p class="subtitle lead">A simple <code>pointblank</code> tutorial</p>
@@ -249,6 +255,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoiaW50cm9kdWN0aW9uIiwi
 </script>
 </div>
 </div>
+<p>You can identify rows in the data that fail a validation step by clicking on the <code>CSV</code> button located at the last (<code>EXT</code>) column.</p>
 <p>We can use the <a href="https://rstudio.github.io/pointblank/reference/get_agent_report.html" target="_blank"><code>get_agent_report()</code></a> function to further customise the report display.</p>
 <div class="cell" data-envir="introduction">
 <div>
@@ -260,7 +267,6 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImVudmlyIjoiaW50cm9kdWN0aW9uIiwiZXZhbCI6dHJ1ZSwibGFi
 </script>
 </div>
 </div>
-<p>You can identify rows in the data that fail a validation step by clicking on the <code>CSV</code> button located at the last (<code>EXT</code>) column.</p>
 </section>
 <section id="post-validation-workflow-simplified" class="level2">
 <h2 class="anchored" data-anchor-id="post-validation-workflow-simplified">Post validation workflow (Simplified)</h2>
@@ -731,13 +737,13 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Welcome">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="../index.html" class="pagination-link" aria-label="Clinical Data Validation in R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Clinical Data Validation in R</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../getting_started/bmi.html" class="pagination-link" aria-label="Validating BMI">
-        <span class="nav-page-text">Validating BMI</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../getting_started/treatment_control.html" class="pagination-link" aria-label="Validating Treatment Groupings">
+        <span class="nav-page-text">Validating Treatment Groupings</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

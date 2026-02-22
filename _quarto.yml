@@ -17,9 +17,10 @@ website:
     collapse-level: 1
     contents:
       - href: index.qmd
-        text: Welcome
+        # text: Welcome
         contents:
           - getting_started/introduction.qmd
+          - getting_started/treatment_control.qmd
           - getting_started/bmi.qmd
     
 format:

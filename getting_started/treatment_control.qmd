@@ -1,0 +1,135 @@
+---
+title: Validating Treatment Groupings
+subtitle: Dealing with uniqueness, completeness and sets
+format: live-html
+engine: knitr
+toc: true
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| include: false
+#| envir: treatment group
+#| label: set expression
+
+# So that we can print pointblank results to the screen
+options(expressions=10000)
+```
+
+Consider this small data set `treatment_group_dataset` consisting of the patient's treatment group in a clinical trial to understand the treatment effects of a pharmaceutical compound.
+
+```{webr}
+#| envir: treatment group
+#| label: small treatment group data set
+#| echo: false
+
+treatment_group_dataset <- tibble::tribble(
+  ~`Patient ID` , ~`Balanced Grouping`, ~`Invalid Grouping`,
+    "Patient 1" ,          "Placebo"  ,        "Treatment" ,        
+    "Patient 2" ,          "Placebo"  ,        "Placebo"   ,         
+    "Patient 3" ,          "Placebo"  ,        "Treatment" ,              
+    "Patient 4" ,          "Treatment",        "Placebo"   ,           
+    "Patient 5" ,          "Placebo"  ,        "Placebo"   ,            
+    "Patient 6" ,          "Treatment",        "Placebo"   ,
+    "Patient 7" ,          "Placebo"  ,        "Plaecbo"   ,           
+    "Patient 8" ,          "Placebo"  ,        "Placebo"   ,         
+    "Patient 9" ,          "Treatment",        "Treatment" ,              
+    "Patient 10",          "Treatment",        "Treatment" ,     
+    "Patient 11",          "Treatment",        "Treatment" ,       
+    "Patient 12",          "Placebo"  ,        "Placebo"   , 
+    "Patient 13",          "Treatment",        "Treatment" ,           
+    "Patient 14",          "Treatment",        "Treatment" ,           
+    "Patient 15",          "Treatment",        "Treatmment", 
+    "Patient 16",          "Placebo"  ,        "Placebo"   ,           
+    "Patient 17",          "Placebo"  ,        "Placebo"   , 
+    "Patient 18",          "Placebo"  ,        "Placebo"   , 
+    "Patient 19",          "Treatment",        "NA"        , 
+    "Patient 20",          "Treatment",        NA
+)
+
+reactable::reactable(
+  treatment_group_dataset,
+  defaultPageSize = 5
+)
+
+```
+
+## Check if patient ID is unique and complete
+
+We verify if the values in the column `Patient ID` are unique  and complete using [`rows_distinct`](https://rstudio.github.io/pointblank/reference/rows_distinct.html){target="_blank"} and [`rows_complete`](https://rstudio.github.io/pointblank/reference/rows_complete.html){target="_blank"} respectively.
+
+```{webr}
+#| envir: treatment group
+#| label: unique patient ID
+#| autorun: false
+
+treatment_group_dataset |> 
+  pointblank::rows_distinct(
+    columns = c("Patient ID")
+  ) |> 
+  pointblank::rows_complete(
+    columns = c("Patient ID")
+  )
+
+```
+
+## Check if all patients are given a treatment group
+
+In this data set, a patient can only be assigned to either the `Placebo` or `Treatment` group. To verify this, we use the function [`col_vals_in_set`](https://rstudio.github.io/pointblank/reference/col_vals_in_set.html){target="_blank"}. A new parameter to take note is `set` which we need to specify the relevant groups the column needs to have. This is done by setting `set = c("Placebo", "Treatment")`.
+
+Here is an example (using columns `Balanced Grouping` and `Imbalanced Grouping`) when the verification has no error.
+
+```{webr}
+#| envir: treatment group
+#| label: checking column Balanced Grouping for valid groups
+#| autorun: false
+
+treatment_group_dataset |> 
+  pointblank::col_vals_in_set(
+    columns = c("Balanced Grouping"),
+    set = c("Placebo", "Treatment")
+  )
+
+```
+
+The column `Invalid Grouping` has patients which do not pass the validation.
+
+```{webr}
+#| envir: treatment group
+#| label: checking column Invalid Grouping for valid groups
+#| autorun: true
+
+treatment_group_dataset |> 
+  pointblank::col_vals_in_set(
+    columns = c("Invalid Grouping"),
+    set = c("Placebo", "Treatment")
+  )
+
+```
+
+We can use [`create_agent()`](https://rstudio.github.io/pointblank/reference/create_agent.html){target="_blank"}, [`interrogate()`](https://rstudio.github.io/pointblank/reference/interrogate.html){target="_blank"} and [`get_sundered_data()`](https://rstudio.github.io/pointblank/reference/get_sundered_data.html){target="_blank"} to obtain patients with issues.
+
+```{webr}
+#| envir: treatment group
+#| label: identifying rows that gives column Invalid Grouping issues
+#| autorun: false
+
+treatment_group_dataset |> 
+  pointblank::create_agent(
+    tbl_name = "Treatment Group Dataset",
+    label = "Treatment Group Dataset Vaidation"
+  ) |> 
+  pointblank::col_vals_in_set(
+    columns = c("Invalid Grouping"),
+    set = c("Placebo", "Treatment")
+  ) |> 
+  pointblank::interrogate() |> 
+  pointblank::get_sundered_data(
+    type = "fail"
+  )
+
+```
+
+We can see that the patients that do not meet the criteria have either missing data or spelling mistakes.
+

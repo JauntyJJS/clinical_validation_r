@@ -6,7 +6,7 @@
     "section": "",
     "text": "This book provides structured examples of ways to do clinical data validation using some R packages such as pointblank.\n\n\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.\n\n\n\nHere are the R packages used in this website.\n\n\n\n\n\n\n\n\n\n\n\nHere are the R platform environment used in this analysis.\n\n\n\n\n\n\n\n\n\n\n\nPhoto by Dariusz Sankowski on StockSnap.",
     "crumbs": [
-      "Welcome"
+      "Clinical Data Validation in R"
     ]
   },
   {
@@ -16,7 +16,7 @@
     "section": "",
     "text": "This is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.",
     "crumbs": [
-      "Welcome"
+      "Clinical Data Validation in R"
     ]
   },
   {
@@ -26,7 +26,7 @@
     "section": "",
     "text": "Here are the R packages used in this website.",
     "crumbs": [
-      "Welcome"
+      "Clinical Data Validation in R"
     ]
   },
   {
@@ -36,7 +36,7 @@
     "section": "",
     "text": "Here are the R platform environment used in this analysis.",
     "crumbs": [
-      "Welcome"
+      "Clinical Data Validation in R"
     ]
   },
   {
@@ -46,62 +46,7 @@
     "section": "",
     "text": "Photo by Dariusz Sankowski on StockSnap.",
     "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html",
-    "href": "getting_started/bmi.html",
-    "title": "Validating BMI",
-    "section": "",
-    "text": "Consider this data set bmi_dataset consisting of the patient’s bmi printed using reactable.",
-    "crumbs": [
-      "Welcome",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#check-if-positive-again",
-    "href": "getting_started/bmi.html#check-if-positive-again",
-    "title": "Validating BMI",
-    "section": "Check if positive again",
-    "text": "Check if positive again\nAgain, we can start by validating if the column BMI is positive by using use the function col_vals_gt().\nHowever, this time, we have an error.\n\n\n\n\n\n\n\n\nWhen we isolate the rows that fail the validation, we can see that the cause of this error was due to missing values.\n\n\n\n\n\n\n\n\nSometimes, we want to keep the data despite having missing values. As such, we can set the parameter na_pass = TRUE to allow validation workflow to bypass rows with missing values.\nHere is how it is done.",
-    "crumbs": [
-      "Welcome",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#check-if-between-two-specific-values",
-    "href": "getting_started/bmi.html#check-if-between-two-specific-values",
-    "title": "Validating BMI",
-    "section": "Check if between two specific values",
-    "text": "Check if between two specific values\nIn reality, we will want to verify if the patient’s BMI is between two values (say 10 to 50 for example). We will isolate patients that do not meet this criteria for verification if the values are valid or not.\nIn this case, we can use the function col_vals_between instead. Instead of the parameter value, we have three additional variables (left, right and inclusive) that we can use to determine the range. The input inclusive is a two-element logical (TRUE or FALSE) vector that indicates whether the left and right bounds should be inclusive. In our example below, we set inclusive = (TRUE, TRUE) as we want to include the lower and upper bound.\nRemember to set the parameter na_pass = TRUE to ignore the missing values.\n\n\n\n\n\n\n\n\nHere we can see that Patient 14 has BMI of over 50 and Patient 16 has BMI of less than 15.",
-    "crumbs": [
-      "Welcome",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#creating-exceptions-using-preconditions",
-    "href": "getting_started/bmi.html#creating-exceptions-using-preconditions",
-    "title": "Validating BMI",
-    "section": "Creating exceptions using preconditions",
-    "text": "Creating exceptions using preconditions\nSuppose that we have verified Patient 14 and Patient 16 and it turns out that these values are true. This means that in our validation steps, we have to omit these two patients as well.\nSuch exceptions can be done using the preconditions parameter. This special parameter accepts expression for changing the input table before proceeding with a particular validation step. Changes can include filtering of rows, adding new columns via joining with another data set or creating a new calculating column from other columns.\nFor this example, we set the precondition parameters to keep patients who are neither in the bmi_50_and_above_id nor bmi_15_and_below_id groups.",
-    "crumbs": [
-      "Welcome",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#a-more-thorough-validation",
-    "href": "getting_started/bmi.html#a-more-thorough-validation",
-    "title": "Validating BMI",
-    "section": "A more thorough validation",
-    "text": "A more thorough validation\nA more thorough (and robust against changes in updated version of data sets) approach is to also verify if these patients in the bmi_50_and_above_id or bmi_15_and_below_id groups are equal to or above 50 and equal to or below 15 respectively.\nWe can do this using the col_vals_gte and col_vals_lte with the corresponding preconditions parameters.\n\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id))} for col_vals_gte\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_10_and_above_id))} for col_vals_lte",
-    "crumbs": [
-      "Welcome",
-      "Validating BMI"
+      "Clinical Data Validation in R"
     ]
   },
   {
@@ -111,7 +56,7 @@
     "section": "",
     "text": "The pointblank package provides a wide range of validation rules that we can use to check our data.\nConsider this data set age_dataset consisting of the patient’s age printed using reactable.",
     "crumbs": [
-      "Welcome",
+      "Clinical Data Validation in R",
       "Introduction"
     ]
   },
@@ -122,7 +67,7 @@
     "section": "Check if positive",
     "text": "Check if positive\nWe start by validating if the column Age is positive. We can use the function col_vals_gt() to do that.\nIn the code below, we check if the column Age is greater than 0 (a positive number). When there are no issues, the data set will be returned.\n\n\n\n\n\n\n\n\nThis gives us the leverage to carry on with the data pipeline, such as changing the name of a column.\n\n\n\n\n\n\n\n\nHere is the example when we validate column Age Invalid which has at least one non-positive row. In this case, an error will be provided, indicating how many rows do not meet the criteria.",
     "crumbs": [
-      "Welcome",
+      "Clinical Data Validation in R",
       "Introduction"
     ]
   },
@@ -131,9 +76,9 @@
     "href": "getting_started/introduction.html#pointblank-workflow-simplified",
     "title": "Introduction",
     "section": "Pointblank workflow (Simplified)",
-    "text": "Pointblank workflow (Simplified)\nIn practice, you may have to identify the rows that fails the validation test and send them to your collaborators for clarification. This is how it can be done in three main steps.\nWe first create an agent object using the function create_agent() on age_dataset. Next, we assign the agent a validation plan using validation functions such as col_vals_gt(). Lastly, we run the function interrogate() for the agent to run the validation plan and gather some information.\nOnce the agent has finished the validation, it can be printed in the Viewer.\n\n\n\n\n\n\n\n\nWe can use the get_agent_report() function to further customise the report display.\n\n\n\n\n\n\n\n\nYou can identify rows in the data that fail a validation step by clicking on the CSV button located at the last (EXT) column.",
+    "text": "Pointblank workflow (Simplified)\nIn practice, you may have to identify the rows that fails the validation test and send them to your collaborators for clarification. This is how it can be done in three main steps.\nWe first create an agent object using the function create_agent() on age_dataset. Next, we assign the agent a validation plan using validation functions such as col_vals_gt(). Lastly, we run the function interrogate() for the agent to run the validation plan and gather some information.\nOnce the agent has finished the validation, it can be printed in the Viewer.\n\n\n\n\n\n\n\n\nYou can identify rows in the data that fail a validation step by clicking on the CSV button located at the last (EXT) column.\nWe can use the get_agent_report() function to further customise the report display.",
     "crumbs": [
-      "Welcome",
+      "Clinical Data Validation in R",
       "Introduction"
     ]
   },
@@ -144,8 +89,96 @@
     "section": "Post validation workflow (Simplified)",
     "text": "Post validation workflow (Simplified)\nWe can extract the row data that didn’t pass a specific row-based validation steps with the get_data_extracts() function. The input i = 2 means we are only looking at data that failed during Step 2 (which is validating if the values in column Age Invalid is greater than 0).\n\n\n\n\n\n\n\n\nAfter data validation, you may want to split the data that pass and fail the validation plan into two separate groups. This can be done using the function get_sundered_data()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis ends our introduction. Check out the other chapters to see how more complicated data validation can be done.",
     "crumbs": [
-      "Welcome",
+      "Clinical Data Validation in R",
       "Introduction"
+    ]
+  },
+  {
+    "objectID": "getting_started/bmi.html",
+    "href": "getting_started/bmi.html",
+    "title": "Validating BMI",
+    "section": "",
+    "text": "Consider this data set bmi_dataset consisting of the patient’s bmi printed using reactable.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "getting_started/bmi.html#check-if-positive-again",
+    "href": "getting_started/bmi.html#check-if-positive-again",
+    "title": "Validating BMI",
+    "section": "Check if positive again",
+    "text": "Check if positive again\nAgain, we can start by validating if the column BMI is positive by using use the function col_vals_gt().\nHowever, this time, we have an error.\n\n\n\n\n\n\n\n\nWhen we isolate the rows that fail the validation, we can see that the cause of this error was due to missing values.\n\n\n\n\n\n\n\n\nSometimes, we want to keep the data despite having missing values. As such, we can set the parameter na_pass = TRUE to allow validation workflow to bypass rows with missing values.\nHere is how it is done.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "getting_started/bmi.html#check-if-between-two-specific-values",
+    "href": "getting_started/bmi.html#check-if-between-two-specific-values",
+    "title": "Validating BMI",
+    "section": "Check if between two specific values",
+    "text": "Check if between two specific values\nIn reality, we will want to verify if the patient’s BMI is between two values (say 10 to 50 for example). We will isolate patients that do not meet this criteria for verification if the values are valid or not.\nIn this case, we can use the function col_vals_between instead. Instead of the parameter value, we have three additional variables (left, right and inclusive) that we can use to determine the range. The input inclusive is a two-element logical (TRUE or FALSE) vector that indicates whether the left and right bounds should be inclusive. In our example below, we set inclusive = (TRUE, TRUE) as we want to include the lower and upper bound.\nRemember to set the parameter na_pass = TRUE to ignore the missing values.\n\n\n\n\n\n\n\n\nHere we can see that Patient 14 has BMI of over 50 and Patient 16 has BMI of less than 15.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "getting_started/bmi.html#creating-exceptions-using-preconditions",
+    "href": "getting_started/bmi.html#creating-exceptions-using-preconditions",
+    "title": "Validating BMI",
+    "section": "Creating exceptions using preconditions",
+    "text": "Creating exceptions using preconditions\nSuppose that we have verified Patient 14 and Patient 16 and it turns out that these values are true. This means that in our validation steps, we have to omit these two patients as well.\nSuch exceptions can be done using the preconditions parameter. This special parameter accepts expression for changing the input table before proceeding with a particular validation step. Changes can include filtering of rows, adding new columns via joining with another data set or creating a new calculating column from other columns.\nFor this example, we set the precondition parameters to keep patients who are neither in the bmi_50_and_above_id nor bmi_15_and_below_id groups.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "getting_started/bmi.html#a-more-thorough-validation",
+    "href": "getting_started/bmi.html#a-more-thorough-validation",
+    "title": "Validating BMI",
+    "section": "A more thorough validation",
+    "text": "A more thorough validation\nA more thorough (and robust against changes in updated version of data sets) approach is to also verify if these patients in the bmi_50_and_above_id or bmi_15_and_below_id groups are equal to or above 50 and equal to or below 15 respectively.\nWe can do this using the col_vals_gte and col_vals_lte.\nTry out this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteHint\n\n\n\n\n\nConsider using the following preconditions parameters\n\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id))} for col_vals_gte\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_10_and_above_id))} for col_vals_lte\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\n\nbmi_50_and_above_id &lt;- c(\"Patient 14\")\nbmi_15_and_below_id &lt;- c(\"Patient 16\")\n\nbmi_dataset |&gt; \n  pointblank::col_vals_gte(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          .data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id)\n        )\n    },\n    value = 50,\n    na_pass = TRUE\n  ) |&gt; \n  pointblank::col_vals_lte(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          .data[[\"Patient ID\"]] %in% c(bmi_15_and_below_id)\n        )\n    },\n    value = 15,\n    na_pass = TRUE\n  ) |&gt; \n  pointblank::col_vals_between(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          !.data[[\"Patient ID\"]] %in% \n            c(bmi_15_and_below_id, bmi_50_and_above_id)\n        )\n    },\n    left = 15,\n    right = 50,\n    inclusive = c(TRUE, TRUE),\n    na_pass = TRUE\n  )",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "getting_started/treatment_control.html",
+    "href": "getting_started/treatment_control.html",
+    "title": "Validating Treatment Groupings",
+    "section": "",
+    "text": "Consider this small data set treatment_group_dataset consisting of the patient’s treatment group in a clinical trial to understand the treatment effects of a pharmaceutical compound.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating Treatment Groupings"
+    ]
+  },
+  {
+    "objectID": "getting_started/treatment_control.html#check-if-patient-id-is-unique-and-complete",
+    "href": "getting_started/treatment_control.html#check-if-patient-id-is-unique-and-complete",
+    "title": "Validating Treatment Groupings",
+    "section": "Check if patient ID is unique and complete",
+    "text": "Check if patient ID is unique and complete\nWe verify if the values in the column Patient ID are unique and complete using rows_distinct and rows_complete respectively.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating Treatment Groupings"
+    ]
+  },
+  {
+    "objectID": "getting_started/treatment_control.html#check-if-all-patients-are-given-a-treatment-group",
+    "href": "getting_started/treatment_control.html#check-if-all-patients-are-given-a-treatment-group",
+    "title": "Validating Treatment Groupings",
+    "section": "Check if all patients are given a treatment group",
+    "text": "Check if all patients are given a treatment group\nIn this data set, a patient can only be assigned to either the Placebo or Treatment group. To verify this, we use the function col_vals_in_set. A new parameter to take note is set which we need to specify the relevant groups the column needs to have. This is done by setting set = c(\"Placebo\", \"Treatment\").\nHere is an example (using columns Balanced Grouping and Imbalanced Grouping) when the verification has no error.\n\n\n\n\n\n\n\n\nThe column Invalid Grouping has patients which do not pass the validation.\n\n\n\n\n\n\n\n\nWe can use create_agent(), interrogate() and get_sundered_data() to obtain patients with issues.\n\n\n\n\n\n\n\n\nWe can see that the patients that do not meet the criteria have either missing data or spelling mistakes.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Validating Treatment Groupings"
     ]
   }
 ]

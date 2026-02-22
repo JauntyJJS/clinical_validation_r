@@ -184,15 +184,90 @@ bmi_dataset |>
 
 A more thorough (and robust against changes in updated version of data sets) approach is to also verify if these patients in the `bmi_50_and_above_id` or `bmi_15_and_below_id` groups are equal to or above 50 and equal to or below 15 respectively. 
 
-We can do this using the [`col_vals_gte`](https://rstudio.github.io/pointblank/reference/col_vals_gte.html){target="_blank"} and [`col_vals_lte`](https://rstudio.github.io/pointblank/reference/col_vals_lte.html){target="_blank"} with the corresponding `preconditions` parameters.
+We can do this using the [`col_vals_gte`](https://rstudio.github.io/pointblank/reference/col_vals_gte.html){target="_blank"} and [`col_vals_lte`](https://rstudio.github.io/pointblank/reference/col_vals_lte.html){target="_blank"}.
+
+Try out this exercise below.
+
+```{webr}
+#| setup: true
+#| exercise: exercise_bmi
+
+bmi_dataset <- tibble::tribble(
+  ~`Patient ID`, ~`BMI`,
+    "Patient 1" , 23.5,          
+    "Patient 2" , 19.2,        
+    "Patient 3" , 28.4,             
+    "Patient 4" , 22.0,          
+    "Patient 5" , 19.4,          
+    "Patient 6" , 22.3,
+    "Patient 7" , 36.8,          
+    "Patient 8" , 16.6,        
+    "Patient 9" , 25.8,             
+    "Patient 10", 18.9,          
+    "Patient 11", 23.9,          
+    "Patient 12", NA,
+    "Patient 13", NA,          
+    "Patient 14", 55.4,          
+    "Patient 15", 15,
+    "Patient 16", 13.2,          
+    "Patient 17", 50
+)
+
+```
+
+```{webr}
+#| exercise: exercise_bmi
+
+bmi_50_and_above_id <- c("Patient 14")
+bmi_15_and_below_id <- c("Patient 16")
+
+bmi_dataset |> 
+  pointblank::col_vals_gte(
+    columns = ______,
+    preconditions = ______,
+    value = ______,
+    na_pass = ______
+  ) |> 
+  pointblank::col_vals_lte(
+    columns = ______,
+    preconditions = ______,
+    value = ______,
+    na_pass = ______
+  ) |> 
+  pointblank::col_vals_between(
+    columns = c("BMI"),
+    preconditions = \(x) {
+      x |> 
+        dplyr::filter(
+          !.data[["Patient ID"]] %in% 
+            c(bmi_15_and_below_id, bmi_50_and_above_id)
+        )
+    },
+    left = 15,
+    right = 50,
+    inclusive = c(TRUE, TRUE),
+    na_pass = TRUE
+  )
+```
+
+::: { .hint exercise="exercise_bmi"}
+::: { .callout-note collapse="false"}
+## Hint
+
+Consider using the following `preconditions` parameters
 
 *  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_50_and_above_id))}` for `col_vals_gte` 
 *  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_10_and_above_id))}` for `col_vals_lte`
 
-```{webr}
-#| envir: bmi
-#| label: a more complete bmi validation
-#| autorun: false
+:::
+
+:::
+
+::: { .solution exercise="exercise_bmi" }
+::: { .callout-tip collapse="false"}
+## Fully worked solution:
+
+```r
 
 bmi_50_and_above_id <- c("Patient 14")
 bmi_15_and_below_id <- c("Patient 16")
@@ -236,3 +311,7 @@ bmi_dataset |>
   )
 
 ```
+
+:::
+
+:::

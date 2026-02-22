@@ -119,6 +119,8 @@ agent <- age_dataset |>
 agent
 ```
 
+You can identify rows in the data that fail a validation step by clicking on the `CSV` button located at the last (`EXT`) column.
+
 We can use the [`get_agent_report()`](https://rstudio.github.io/pointblank/reference/get_agent_report.html){target="_blank"} function to further customise the report display.
 
 ```{webr}
@@ -132,8 +134,6 @@ agent |>
   )
 
 ```
-
-You can identify rows in the data that fail a validation step by clicking on the `CSV` button located at the last (`EXT`) column.
 
 ## Post validation workflow (Simplified)
 
