@@ -63,7 +63,6 @@ We verify if the values in the column `Patient ID` are unique  and complete usin
 #| envir: treatment group
 #| label: unique patient ID
 #| autorun: false
-
 treatment_group_dataset |> 
   pointblank::rows_distinct(
     columns = c("Patient ID")
@@ -84,7 +83,6 @@ Here is an example (using columns `Balanced Grouping` and `Imbalanced Grouping`)
 #| envir: treatment group
 #| label: checking column Balanced Grouping for valid groups
 #| autorun: false
-
 treatment_group_dataset |> 
   pointblank::col_vals_in_set(
     columns = c("Balanced Grouping"),
@@ -99,7 +97,6 @@ The column `Invalid Grouping` has patients which do not pass the validation.
 #| envir: treatment group
 #| label: checking column Invalid Grouping for valid groups
 #| autorun: true
-
 treatment_group_dataset |> 
   pointblank::col_vals_in_set(
     columns = c("Invalid Grouping"),
@@ -114,7 +111,6 @@ We can use [`create_agent()`](https://rstudio.github.io/pointblank/reference/cre
 #| envir: treatment group
 #| label: identifying rows that gives column Invalid Grouping issues
 #| autorun: false
-
 treatment_group_dataset |> 
   pointblank::create_agent(
     tbl_name = "Treatment Group Dataset",

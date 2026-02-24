@@ -50,7 +50,6 @@ When there are no issues, the data set will be returned.
 ```{webr}
 #| envir: introduction
 #| label: small age data set validate age is positive
-
 age_dataset |> 
   pointblank::col_vals_gt(
     columns = c("Age"),
@@ -64,7 +63,6 @@ This gives us the leverage to carry on with the data pipeline, such as changing 
 ```{webr}
 #| envir: introduction
 #| label: small age data set validate age is positive continue
-
 age_dataset |> 
   pointblank::col_vals_gt(
     columns = c("Age"),
@@ -82,7 +80,6 @@ Here is the example when we validate column `Age Invalid` which has at least one
 #| envir: introduction
 #| label: small age data set validate age invalid
 #| autorun: true
-
 age_dataset |> 
   pointblank::col_vals_gt(
     columns = c("Age Invalid"),
@@ -104,7 +101,6 @@ Once the `agent` has finished the validation, it can be printed in the Viewer.
 #| label: small age data set create agent
 #| fig-width: 7
 #| autorun: true
-
 agent <- age_dataset |> 
   pointblank::create_agent(
     tbl_name = "Age Dataset",
@@ -142,7 +138,6 @@ We can extract the row data that didn't pass a specific row-based validation ste
 ```{webr}
 #| envir: introduction
 #| label: small age data set extract failed rows
-
 agent |> 
   pointblank::get_data_extracts(
     i = 2
