@@ -4,6 +4,19 @@ subtitle: "A guide on how to do clinical data validation using some R packages."
 author: "Jeremy Selva"
 format: live-html
 engine: knitr
+webr:
+  packages:
+    - sessioninfo
+    - fs
+    # - quarto
+    - tibble
+    - dplyr
+    - tidyr
+    # - forcats
+    # - glue
+    # - readxl
+    - reactable
+    - pointblank
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}

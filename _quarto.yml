@@ -30,19 +30,5 @@ format:
     #   light: cosmo
     #   dark: darkly
     backgroundcolor: "#F5F5F5"
-      
-webr:
-  packages:
-    - sessioninfo
-    - fs
-    # - quarto
-    - tibble
-    - dplyr
-    - tidyr
-    # - forcats
-    # - glue
-    # - readxl
-    - reactable
-    - pointblank
 
 

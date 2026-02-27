@@ -4,6 +4,11 @@ subtitle: Dealing with uniqueness, completeness and sets
 format: live-html
 engine: knitr
 toc: true
+webr:
+  packages:
+    - tibble
+    - reactable
+    - pointblank
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
