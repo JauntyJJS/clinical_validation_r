@@ -149,6 +149,39 @@
     ]
   },
   {
+    "objectID": "getting_started/convert_numeric_to_integer.html",
+    "href": "getting_started/convert_numeric_to_integer.html",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "",
+    "text": "To save on memory space, sometimes you may wish to convert a numeric column to an integer column if it is safe to do so.\nConsider this small data set total_cacs_dataset consisting of the patient’s total coronary calcium Agatston score.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Safe Conversion from Numeric to Integer"
+    ]
+  },
+  {
+    "objectID": "getting_started/convert_numeric_to_integer.html#dangers-of-unsafe-integer-conversion",
+    "href": "getting_started/convert_numeric_to_integer.html#dangers-of-unsafe-integer-conversion",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "Dangers of Unsafe Integer Conversion",
+    "text": "Dangers of Unsafe Integer Conversion\nIf you take a look at the class (data type) of columns CACS Numeric Safe 1, CACS Numeric Safe 2, and CACS Numeric Unsafe, you will see that they are all set to numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe want to check in an automatic way if these column values can be safely be converted into type integer using the function as.integer() as doing this inaccurately can lead to a loss of precision. Observe that 746.9, 0.5 and 95.9 are converted to 746, 0 and 95.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Safe Conversion from Numeric to Integer"
+    ]
+  },
+  {
+    "objectID": "getting_started/convert_numeric_to_integer.html#check-if-a-numeric-column-is-safe-for-integer-conversion",
+    "href": "getting_started/convert_numeric_to_integer.html#check-if-a-numeric-column-is-safe-for-integer-conversion",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "Check if a numeric column is safe for integer conversion",
+    "text": "Check if a numeric column is safe for integer conversion\nWhile pointblank does not have a function that do that, we can create a customised validation that uses a predicate expression (a conditional R script of expression that returns a vector containing TRUE, FALSE or NA) and then use the function pointblank::col_vals_exp to identify which rows does not meet the predicate expression.\nThe predicate expression can be done using the function checkmate::testIntegerish which returns FALSE if the input vector cannot be safely convertible to integer. To ensure that we have a TRUE or FALSE output for each element in the input vector, we use the function purrr::map_lgl. Here is an example using the column CACS Numeric Unsafe as an input to returns a vector containing TRUE, FALSE or NA.\n\n\n\n\n\n\n\n\nWe then use pointblank::col_vals_exp with the the predicate expression to isolate rows that cannot be safely convert to integer in the column CACS Numeric Unsafe.\n\n\n\n\n\n\n\n\nHere is an example (using columns CACS Numeric Safe 1 and CACS Numeric Safe 2) when the verification has no error allowing us to safely do the conversion.",
+    "crumbs": [
+      "Clinical Data Validation in R",
+      "Safe Conversion from Numeric to Integer"
+    ]
+  },
+  {
     "objectID": "getting_started/treatment_control.html",
     "href": "getting_started/treatment_control.html",
     "title": "Validating Treatment Groupings",

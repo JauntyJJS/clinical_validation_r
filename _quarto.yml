@@ -22,6 +22,7 @@ website:
           - getting_started/introduction.qmd
           - getting_started/treatment_control.qmd
           - getting_started/bmi.qmd
+          - getting_started/convert_numeric_to_integer.qmd
     
 format:
   html:

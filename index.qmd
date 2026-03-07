@@ -12,9 +12,11 @@ webr:
     - tibble
     - dplyr
     - tidyr
+    - purrr
     # - forcats
     # - glue
     # - readxl
+    - checkmate
     - reactable
     - pointblank
 ---
