@@ -39,7 +39,7 @@ total_cacs_dataset <- tibble::tribble(
     "Patient 1" ,                    746,                    746,                  746.9,   
     "Patient 2" ,                    853,                 853.00,                 853.00,     
     "Patient 3" ,                      0,                      0,                    0.5,                  
-    "Patient 4" ,                     95,                     95,                   95.9,           
+    "Patient 4" ,                     95,                     95,                   95.4,           
     "Patient 5" ,                     NA,                  343.0,                  343.0
 )
 
@@ -112,7 +112,7 @@ We then use [`pointblank::col_vals_exp`](https://rstudio.github.io/pointblank/re
 ```{webr}
 #| envir: safe integer conversion
 #| label: identifying rows that cannot be safely converted to integer
-#| autorun: false
+#| autorun: true
 total_cacs_dataset |> 
   pointblank::create_agent(
     tbl_name = "CACS Numeric Dataset",
