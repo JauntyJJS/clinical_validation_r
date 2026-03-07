@@ -18,7 +18,7 @@ webr:
 
 ```{webr}
 #| include: false
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: set expression
 
 # So that we can print pointblank results to the screen
@@ -30,10 +30,9 @@ To save on memory space, sometimes you may wish to convert a `numeric` column to
 Consider this small data set `total_cacs_dataset` consisting of the patient's total coronary calcium Agatston score.
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: CACS numeric data set
 #| echo: false
-
 total_cacs_dataset <- tibble::tribble(
   ~`Patient ID` , ~`CACS Numeric Safe 1`, ~`CACS Numeric Safe 2`, ~`CACS Numeric Unsafe`,
     "Patient 1" ,                    746,                    746,                  746.9,   
@@ -55,38 +54,33 @@ reactable::reactable(
 If you take a look at the class (data type) of columns `CACS Numeric Safe 1`, `CACS Numeric Safe 2`, and `CACS Numeric Unsafe`, you will see that they are all set to `numeric`
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: class of CACS Numeric Safe 1
 #| autorun: true
-
 class(total_cacs_dataset[["CACS Numeric Safe 1"]])
 ```
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: class of CACS Numeric Safe 2
 #| autorun: true
-
 class(total_cacs_dataset[["CACS Numeric Safe 2"]])
 ```
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: class of CACS Numeric Safe 3
 #| autorun: true
-
 class(total_cacs_dataset[["CACS Numeric Unsafe"]])
 ```
 
 We want to check in an automatic way if these column values can be safely be converted into type `integer` using the function `as.integer()` as doing this inaccurately can lead to a loss of precision. Observe that `746.9`, `0.5` and `95.9` are converted to `746`, `0` and `95`.
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: unsafe convertion
-#| warning: TRUE
-
+#| warning: true
 as.integer(total_cacs_dataset[["CACS Numeric Unsafe"]])
-
 ```
 
 ## Check if a numeric column is safe for integer conversion
@@ -96,10 +90,9 @@ While [`pointblank`](https://rstudio.github.io/pointblank/index.html){target="_b
 The predicate expression can be done using the function [`checkmate::testIntegerish`](https://mllg.github.io/checkmate/reference/checkIntegerish.html){target="_blank"} which returns `FALSE` if the input vector cannot be safely convertible to integer. To ensure that we have a `TRUE` or `FALSE` output for each element in the input vector, we use the function [`purrr::map_lgl`](https://purrr.tidyverse.org/reference/map.html){target="_blank"}. Here is an example using the column `CACS Numeric Unsafe` as an input to returns a vector containing `TRUE`, `FALSE` or `NA`.
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: identifying numeric values that cannot be safely converted to integer
 #| autorun: false
-
 purrr::map_lgl(
   .x = total_cacs_dataset[["CACS Numeric Unsafe"]], 
   .f = checkmate::testIntegerish
@@ -110,7 +103,7 @@ purrr::map_lgl(
 We then use [`pointblank::col_vals_exp`](https://rstudio.github.io/pointblank/reference/col_vals_expr.html){target="_blank"} with the the predicate expression to isolate rows that cannot be safely convert to integer in the column `CACS Numeric Unsafe`.
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: identifying rows that cannot be safely converted to integer
 #| autorun: true
 total_cacs_dataset |> 
@@ -120,9 +113,8 @@ total_cacs_dataset |>
   ) |> 
   pointblank::col_vals_expr(
     expr = ~ purrr::map_lgl(
-      .x = total_cacs_dataset[["CACS Numeric Unsafe"]], 
-      .f = checkmate::testIntegerish
-    )
+      .x = .data[["CACS Numeric Unsafe"]], 
+      .f = checkmate::testIntegerish)
   ) |> 
   pointblank::interrogate() |> 
   pointblank::get_sundered_data(
@@ -134,7 +126,7 @@ total_cacs_dataset |>
 Here is an example (using columns `CACS Numeric Safe 1` and `CACS Numeric Safe 2`) when the verification has no error allowing us to safely do the conversion.
 
 ```{webr}
-#| envir: safe integer conversion
+#| envir: numeric to integer
 #| label: safe conversion to integers after checking
 #| autorun: false
 total_cacs_dataset |> 

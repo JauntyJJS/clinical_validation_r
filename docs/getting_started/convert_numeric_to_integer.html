@@ -185,69 +185,69 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="cell" data-envir="safe integer conversion">
+<div class="cell" data-envir="numeric to integer">
 <div>
 <div id="webr-1" class="exercise-cell">
 
 </div>
 <script type="webr-1-contents">
-eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZW52aXIiOiJzYWZlIGludGVnZXIgY29udmVyc2lvbiIsImV2YWwiOnRydWUsImluY2x1ZGUiOmZhbHNlLCJsYWJlbCI6InNldCBleHByZXNzaW9uIiwib3V0cHV0IjpmYWxzZX0sImNvZGUiOiJcbiMgU28gdGhhdCB3ZSBjYW4gcHJpbnQgcG9pbnRibGFuayByZXN1bHRzIHRvIHRoZSBzY3JlZW5cbm9wdGlvbnMoZXhwcmVzc2lvbnM9MTAwMDApIn0=
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZW52aXIiOiJudW1lcmljIHRvIGludGVnZXIiLCJldmFsIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwibGFiZWwiOiJzZXQgZXhwcmVzc2lvbiIsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiXG4jIFNvIHRoYXQgd2UgY2FuIHByaW50IHBvaW50YmxhbmsgcmVzdWx0cyB0byB0aGUgc2NyZWVuXG5vcHRpb25zKGV4cHJlc3Npb25zPTEwMDAwKSJ9
 </script>
 </div>
 </div>
 <p>To save on memory space, sometimes you may wish to convert a <code>numeric</code> column to an <code>integer</code> column if it is safe to do so.</p>
 <p>Consider this small data set <code>total_cacs_dataset</code> consisting of the patient’s total coronary calcium Agatston score.</p>
-<div class="cell" data-envir="safe integer conversion">
+<div class="cell" data-envir="numeric to integer">
 <div>
 <div id="webr-2" class="exercise-cell">
 
 </div>
 <script type="webr-2-contents">
-eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZW52aXIiOiJzYWZlIGludGVnZXIgY29udmVyc2lvbiIsImV2YWwiOnRydWUsImxhYmVsIjoiQ0FDUyBudW1lcmljIGRhdGEgc2V0In0sImNvZGUiOiJcbnRvdGFsX2NhY3NfZGF0YXNldCA8LSB0aWJibGU6OnRyaWJibGUoXG4gIH5gUGF0aWVudCBJRGAgLCB+YENBQ1MgTnVtZXJpYyBTYWZlIDFgLCB+YENBQ1MgTnVtZXJpYyBTYWZlIDJgLCB+YENBQ1MgTnVtZXJpYyBVbnNhZmVgLFxuICAgIFwiUGF0aWVudCAxXCIgLCAgICAgICAgICAgICAgICAgICAgNzQ2LCAgICAgICAgICAgICAgICAgICAgNzQ2LCAgICAgICAgICAgICAgICAgIDc0Ni45LCAgIFxuICAgIFwiUGF0aWVudCAyXCIgLCAgICAgICAgICAgICAgICAgICAgODUzLCAgICAgICAgICAgICAgICAgODUzLjAwLCAgICAgICAgICAgICAgICAgODUzLjAwLCAgICAgXG4gICAgXCJQYXRpZW50IDNcIiAsICAgICAgICAgICAgICAgICAgICAgIDAsICAgICAgICAgICAgICAgICAgICAgIDAsICAgICAgICAgICAgICAgICAgICAwLjUsICAgICAgICAgICAgICAgICAgXG4gICAgXCJQYXRpZW50IDRcIiAsICAgICAgICAgICAgICAgICAgICAgOTUsICAgICAgICAgICAgICAgICAgICAgOTUsICAgICAgICAgICAgICAgICAgIDk1LjQsICAgICAgICAgICBcbiAgICBcIlBhdGllbnQgNVwiICwgICAgICAgICAgICAgICAgICAgICBOQSwgICAgICAgICAgICAgICAgICAzNDMuMCwgICAgICAgICAgICAgICAgICAzNDMuMFxuKVxuXG5yZWFjdGFibGU6OnJlYWN0YWJsZShcbiAgdG90YWxfY2Fjc19kYXRhc2V0LFxuICBkZWZhdWx0UGFnZVNpemUgPSA1XG4pIn0=
+eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZW52aXIiOiJudW1lcmljIHRvIGludGVnZXIiLCJldmFsIjp0cnVlLCJsYWJlbCI6IkNBQ1MgbnVtZXJpYyBkYXRhIHNldCJ9LCJjb2RlIjoidG90YWxfY2Fjc19kYXRhc2V0IDwtIHRpYmJsZTo6dHJpYmJsZShcbiAgfmBQYXRpZW50IElEYCAsIH5gQ0FDUyBOdW1lcmljIFNhZmUgMWAsIH5gQ0FDUyBOdW1lcmljIFNhZmUgMmAsIH5gQ0FDUyBOdW1lcmljIFVuc2FmZWAsXG4gICAgXCJQYXRpZW50IDFcIiAsICAgICAgICAgICAgICAgICAgICA3NDYsICAgICAgICAgICAgICAgICAgICA3NDYsICAgICAgICAgICAgICAgICAgNzQ2LjksICAgXG4gICAgXCJQYXRpZW50IDJcIiAsICAgICAgICAgICAgICAgICAgICA4NTMsICAgICAgICAgICAgICAgICA4NTMuMDAsICAgICAgICAgICAgICAgICA4NTMuMDAsICAgICBcbiAgICBcIlBhdGllbnQgM1wiICwgICAgICAgICAgICAgICAgICAgICAgMCwgICAgICAgICAgICAgICAgICAgICAgMCwgICAgICAgICAgICAgICAgICAgIDAuNSwgICAgICAgICAgICAgICAgICBcbiAgICBcIlBhdGllbnQgNFwiICwgICAgICAgICAgICAgICAgICAgICA5NSwgICAgICAgICAgICAgICAgICAgICA5NSwgICAgICAgICAgICAgICAgICAgOTUuNCwgICAgICAgICAgIFxuICAgIFwiUGF0aWVudCA1XCIgLCAgICAgICAgICAgICAgICAgICAgIE5BLCAgICAgICAgICAgICAgICAgIDM0My4wLCAgICAgICAgICAgICAgICAgIDM0My4wXG4pXG5cbnJlYWN0YWJsZTo6cmVhY3RhYmxlKFxuICB0b3RhbF9jYWNzX2RhdGFzZXQsXG4gIGRlZmF1bHRQYWdlU2l6ZSA9IDVcbikifQ==
 </script>
 </div>
 </div>
 <section id="dangers-of-unsafe-integer-conversion" class="level2">
 <h2 class="anchored" data-anchor-id="dangers-of-unsafe-integer-conversion">Dangers of Unsafe Integer Conversion</h2>
 <p>If you take a look at the class (data type) of columns <code>CACS Numeric Safe 1</code>, <code>CACS Numeric Safe 2</code>, and <code>CACS Numeric Unsafe</code>, you will see that they are all set to <code>numeric</code></p>
-<div class="cell" data-envir="safe integer conversion" data-autorun="true">
+<div class="cell" data-envir="numeric to integer" data-autorun="true">
 <div>
 <div id="webr-3" class="exercise-cell">
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoic2FmZSBpbnRlZ2VyIGNvbnZlcnNpb24iLCJldmFsIjp0cnVlLCJsYWJlbCI6ImNsYXNzIG9mIENBQ1MgTnVtZXJpYyBTYWZlIDEifSwiY29kZSI6IlxuY2xhc3ModG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBTYWZlIDFcIl1dKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoibnVtZXJpYyB0byBpbnRlZ2VyIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJjbGFzcyBvZiBDQUNTIE51bWVyaWMgU2FmZSAxIn0sImNvZGUiOiJjbGFzcyh0b3RhbF9jYWNzX2RhdGFzZXRbW1wiQ0FDUyBOdW1lcmljIFNhZmUgMVwiXV0pIn0=
 </script>
 </div>
 </div>
-<div class="cell" data-envir="safe integer conversion" data-autorun="true">
+<div class="cell" data-envir="numeric to integer" data-autorun="true">
 <div>
 <div id="webr-4" class="exercise-cell">
 
 </div>
 <script type="webr-4-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoic2FmZSBpbnRlZ2VyIGNvbnZlcnNpb24iLCJldmFsIjp0cnVlLCJsYWJlbCI6ImNsYXNzIG9mIENBQ1MgTnVtZXJpYyBTYWZlIDIifSwiY29kZSI6IlxuY2xhc3ModG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBTYWZlIDJcIl1dKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoibnVtZXJpYyB0byBpbnRlZ2VyIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJjbGFzcyBvZiBDQUNTIE51bWVyaWMgU2FmZSAyIn0sImNvZGUiOiJjbGFzcyh0b3RhbF9jYWNzX2RhdGFzZXRbW1wiQ0FDUyBOdW1lcmljIFNhZmUgMlwiXV0pIn0=
 </script>
 </div>
 </div>
-<div class="cell" data-envir="safe integer conversion" data-autorun="true">
+<div class="cell" data-envir="numeric to integer" data-autorun="true">
 <div>
 <div id="webr-5" class="exercise-cell">
 
 </div>
 <script type="webr-5-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoic2FmZSBpbnRlZ2VyIGNvbnZlcnNpb24iLCJldmFsIjp0cnVlLCJsYWJlbCI6ImNsYXNzIG9mIENBQ1MgTnVtZXJpYyBTYWZlIDMifSwiY29kZSI6IlxuY2xhc3ModG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBVbnNhZmVcIl1dKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoibnVtZXJpYyB0byBpbnRlZ2VyIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJjbGFzcyBvZiBDQUNTIE51bWVyaWMgU2FmZSAzIn0sImNvZGUiOiJjbGFzcyh0b3RhbF9jYWNzX2RhdGFzZXRbW1wiQ0FDUyBOdW1lcmljIFVuc2FmZVwiXV0pIn0=
 </script>
 </div>
 </div>
 <p>We want to check in an automatic way if these column values can be safely be converted into type <code>integer</code> using the function <code>as.integer()</code> as doing this inaccurately can lead to a loss of precision. Observe that <code>746.9</code>, <code>0.5</code> and <code>95.9</code> are converted to <code>746</code>, <code>0</code> and <code>95</code>.</p>
-<div class="cell" data-envir="safe integer conversion">
+<div class="cell" data-envir="numeric to integer">
 <div>
 <div id="webr-6" class="exercise-cell">
 
 </div>
 <script type="webr-6-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImVudmlyIjoic2FmZSBpbnRlZ2VyIGNvbnZlcnNpb24iLCJldmFsIjp0cnVlLCJsYWJlbCI6InVuc2FmZSBjb252ZXJ0aW9uIiwid2FybmluZyI6dHJ1ZX0sImNvZGUiOiJcbmFzLmludGVnZXIodG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBVbnNhZmVcIl1dKSJ9
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImVudmlyIjoibnVtZXJpYyB0byBpbnRlZ2VyIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJ1bnNhZmUgY29udmVydGlvbiIsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiYXMuaW50ZWdlcih0b3RhbF9jYWNzX2RhdGFzZXRbW1wiQ0FDUyBOdW1lcmljIFVuc2FmZVwiXV0pIn0=
 </script>
 </div>
 </div>
@@ -256,35 +256,35 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImVudmlyIjoic2FmZSBpbnRlZ2VyIGNvbnZlcnNpb24iLCJldmFs
 <h2 class="anchored" data-anchor-id="check-if-a-numeric-column-is-safe-for-integer-conversion">Check if a numeric column is safe for integer conversion</h2>
 <p>While <a href="https://rstudio.github.io/pointblank/index.html" target="_blank"><code>pointblank</code></a> does not have a function that do that, we can create a customised validation that uses a predicate expression (a conditional R script of expression that returns a vector containing <code>TRUE</code>, <code>FALSE</code> or <code>NA</code>) and then use the function <a href="https://rstudio.github.io/pointblank/reference/col_vals_expr.html" target="_blank"><code>pointblank::col_vals_exp</code></a> to identify which rows does not meet the predicate expression.</p>
 <p>The predicate expression can be done using the function <a href="https://mllg.github.io/checkmate/reference/checkIntegerish.html" target="_blank"><code>checkmate::testIntegerish</code></a> which returns <code>FALSE</code> if the input vector cannot be safely convertible to integer. To ensure that we have a <code>TRUE</code> or <code>FALSE</code> output for each element in the input vector, we use the function <a href="https://purrr.tidyverse.org/reference/map.html" target="_blank"><code>purrr::map_lgl</code></a>. Here is an example using the column <code>CACS Numeric Unsafe</code> as an input to returns a vector containing <code>TRUE</code>, <code>FALSE</code> or <code>NA</code>.</p>
-<div class="cell" data-envir="safe integer conversion" data-autorun="false">
+<div class="cell" data-envir="numeric to integer" data-autorun="false">
 <div>
 <div id="webr-7" class="exercise-cell">
 
 </div>
 <script type="webr-7-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJlbnZpciI6InNhZmUgaW50ZWdlciBjb252ZXJzaW9uIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJpZGVudGlmeWluZyBudW1lcmljIHZhbHVlcyB0aGF0IGNhbm5vdCBiZSBzYWZlbHkgY29udmVydGVkIHRvIGludGVnZXIifSwiY29kZSI6IlxucHVycnI6Om1hcF9sZ2woXG4gIC54ID0gdG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBVbnNhZmVcIl1dLCBcbiAgLmYgPSBjaGVja21hdGU6OnRlc3RJbnRlZ2VyaXNoXG4pIn0=
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJlbnZpciI6Im51bWVyaWMgdG8gaW50ZWdlciIsImV2YWwiOnRydWUsImxhYmVsIjoiaWRlbnRpZnlpbmcgbnVtZXJpYyB2YWx1ZXMgdGhhdCBjYW5ub3QgYmUgc2FmZWx5IGNvbnZlcnRlZCB0byBpbnRlZ2VyIn0sImNvZGUiOiJwdXJycjo6bWFwX2xnbChcbiAgLnggPSB0b3RhbF9jYWNzX2RhdGFzZXRbW1wiQ0FDUyBOdW1lcmljIFVuc2FmZVwiXV0sIFxuICAuZiA9IGNoZWNrbWF0ZTo6dGVzdEludGVnZXJpc2hcbikifQ==
 </script>
 </div>
 </div>
 <p>We then use <a href="https://rstudio.github.io/pointblank/reference/col_vals_expr.html" target="_blank"><code>pointblank::col_vals_exp</code></a> with the the predicate expression to isolate rows that cannot be safely convert to integer in the column <code>CACS Numeric Unsafe</code>.</p>
-<div class="cell" data-envir="safe integer conversion" data-autorun="true">
+<div class="cell" data-envir="numeric to integer" data-autorun="true">
 <div>
 <div id="webr-8" class="exercise-cell">
 
 </div>
 <script type="webr-8-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoic2FmZSBpbnRlZ2VyIGNvbnZlcnNpb24iLCJldmFsIjp0cnVlLCJsYWJlbCI6ImlkZW50aWZ5aW5nIHJvd3MgdGhhdCBjYW5ub3QgYmUgc2FmZWx5IGNvbnZlcnRlZCB0byBpbnRlZ2VyIn0sImNvZGUiOiJ0b3RhbF9jYWNzX2RhdGFzZXQgfD4gXG4gIHBvaW50Ymxhbms6OmNyZWF0ZV9hZ2VudChcbiAgICB0YmxfbmFtZSA9IFwiQ0FDUyBOdW1lcmljIERhdGFzZXRcIixcbiAgICBsYWJlbCA9IFwiQ0FDUyBOdW1lcmljIERhdGFzZXQgVmFpZGF0aW9uXCJcbiAgKSB8PiBcbiAgcG9pbnRibGFuazo6Y29sX3ZhbHNfZXhwcihcbiAgICBleHByID0gfiBwdXJycjo6bWFwX2xnbChcbiAgICAgIC54ID0gdG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBVbnNhZmVcIl1dLCBcbiAgICAgIC5mID0gY2hlY2ttYXRlOjp0ZXN0SW50ZWdlcmlzaFxuICAgIClcbiAgKSB8PiBcbiAgcG9pbnRibGFuazo6aW50ZXJyb2dhdGUoKSB8PiBcbiAgcG9pbnRibGFuazo6Z2V0X3N1bmRlcmVkX2RhdGEoXG4gICAgdHlwZSA9IFwiZmFpbFwiXG4gICkifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImVudmlyIjoibnVtZXJpYyB0byBpbnRlZ2VyIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJpZGVudGlmeWluZyByb3dzIHRoYXQgY2Fubm90IGJlIHNhZmVseSBjb252ZXJ0ZWQgdG8gaW50ZWdlciJ9LCJjb2RlIjoidG90YWxfY2Fjc19kYXRhc2V0IHw+IFxuICBwb2ludGJsYW5rOjpjcmVhdGVfYWdlbnQoXG4gICAgdGJsX25hbWUgPSBcIkNBQ1MgTnVtZXJpYyBEYXRhc2V0XCIsXG4gICAgbGFiZWwgPSBcIkNBQ1MgTnVtZXJpYyBEYXRhc2V0IFZhaWRhdGlvblwiXG4gICkgfD4gXG4gIHBvaW50Ymxhbms6OmNvbF92YWxzX2V4cHIoXG4gICAgZXhwciA9IH4gcHVycnI6Om1hcF9sZ2woXG4gICAgICAueCA9IC5kYXRhW1tcIkNBQ1MgTnVtZXJpYyBVbnNhZmVcIl1dLCBcbiAgICAgIC5mID0gY2hlY2ttYXRlOjp0ZXN0SW50ZWdlcmlzaClcbiAgKSB8PiBcbiAgcG9pbnRibGFuazo6aW50ZXJyb2dhdGUoKSB8PiBcbiAgcG9pbnRibGFuazo6Z2V0X3N1bmRlcmVkX2RhdGEoXG4gICAgdHlwZSA9IFwiZmFpbFwiXG4gICkifQ==
 </script>
 </div>
 </div>
 <p>Here is an example (using columns <code>CACS Numeric Safe 1</code> and <code>CACS Numeric Safe 2</code>) when the verification has no error allowing us to safely do the conversion.</p>
-<div class="cell" data-envir="safe integer conversion" data-autorun="false">
+<div class="cell" data-envir="numeric to integer" data-autorun="false">
 <div>
 <div id="webr-9" class="exercise-cell">
 
 </div>
 <script type="webr-9-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJlbnZpciI6InNhZmUgaW50ZWdlciBjb252ZXJzaW9uIiwiZXZhbCI6dHJ1ZSwibGFiZWwiOiJzYWZlIGNvbnZlcnNpb24gdG8gaW50ZWdlcnMgYWZ0ZXIgY2hlY2tpbmcifSwiY29kZSI6InRvdGFsX2NhY3NfZGF0YXNldCB8PiBcbiAgcG9pbnRibGFuazo6Y29sX3ZhbHNfZXhwcihcbiAgICBleHByID0gfiBwdXJycjo6bWFwX2xnbChcbiAgICAgIC54ID0gdG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBTYWZlIDFcIl1dLCBcbiAgICAgIC5mID0gY2hlY2ttYXRlOjp0ZXN0SW50ZWdlcmlzaFxuICAgICksXG4gICAgbmFfcGFzcyA9IFRSVUVcbiAgKSB8PiBcbiAgcG9pbnRibGFuazo6Y29sX3ZhbHNfZXhwcihcbiAgICBleHByID0gfiBwdXJycjo6bWFwX2xnbChcbiAgICAgIC54ID0gdG90YWxfY2Fjc19kYXRhc2V0W1tcIkNBQ1MgTnVtZXJpYyBTYWZlIDJcIl1dLCBcbiAgICAgIC5mID0gY2hlY2ttYXRlOjp0ZXN0SW50ZWdlcmlzaFxuICAgICksXG4gICAgbmFfcGFzcyA9IEZBTFNFXG4gICkgfD4gXG4gIGRwbHlyOjptdXRhdGUoXG4gICAgZHBseXI6OmFjcm9zcyhcbiAgICAgIC5jb2xzID0gYyhcIkNBQ1MgTnVtZXJpYyBTYWZlIDFcIiwgXCJDQUNTIE51bWVyaWMgU2FmZSAyXCIpLFxuICAgICAgLmZucyA9IGFzLmludGVnZXJcbiAgICApXG4gICkifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJlbnZpciI6Im51bWVyaWMgdG8gaW50ZWdlciIsImV2YWwiOnRydWUsImxhYmVsIjoic2FmZSBjb252ZXJzaW9uIHRvIGludGVnZXJzIGFmdGVyIGNoZWNraW5nIn0sImNvZGUiOiJ0b3RhbF9jYWNzX2RhdGFzZXQgfD4gXG4gIHBvaW50Ymxhbms6OmNvbF92YWxzX2V4cHIoXG4gICAgZXhwciA9IH4gcHVycnI6Om1hcF9sZ2woXG4gICAgICAueCA9IHRvdGFsX2NhY3NfZGF0YXNldFtbXCJDQUNTIE51bWVyaWMgU2FmZSAxXCJdXSwgXG4gICAgICAuZiA9IGNoZWNrbWF0ZTo6dGVzdEludGVnZXJpc2hcbiAgICApLFxuICAgIG5hX3Bhc3MgPSBUUlVFXG4gICkgfD4gXG4gIHBvaW50Ymxhbms6OmNvbF92YWxzX2V4cHIoXG4gICAgZXhwciA9IH4gcHVycnI6Om1hcF9sZ2woXG4gICAgICAueCA9IHRvdGFsX2NhY3NfZGF0YXNldFtbXCJDQUNTIE51bWVyaWMgU2FmZSAyXCJdXSwgXG4gICAgICAuZiA9IGNoZWNrbWF0ZTo6dGVzdEludGVnZXJpc2hcbiAgICApLFxuICAgIG5hX3Bhc3MgPSBGQUxTRVxuICApIHw+IFxuICBkcGx5cjo6bXV0YXRlKFxuICAgIGRwbHlyOjphY3Jvc3MoXG4gICAgICAuY29scyA9IGMoXCJDQUNTIE51bWVyaWMgU2FmZSAxXCIsIFwiQ0FDUyBOdW1lcmljIFNhZmUgMlwiKSxcbiAgICAgIC5mbnMgPSBhcy5pbnRlZ2VyXG4gICAgKVxuICApIn0=
 </script>
 </div>
 </div>
