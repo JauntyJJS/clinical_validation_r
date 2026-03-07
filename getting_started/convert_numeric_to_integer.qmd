@@ -132,14 +132,14 @@ Here is an example (using columns `CACS Numeric Safe 1` and `CACS Numeric Safe 2
 total_cacs_dataset |> 
   pointblank::col_vals_expr(
     expr = ~ purrr::map_lgl(
-      .x = total_cacs_dataset[["CACS Numeric Safe 1"]], 
+      .x = .data[["CACS Numeric Safe 1"]], 
       .f = checkmate::testIntegerish
     ),
     na_pass = TRUE
   ) |> 
   pointblank::col_vals_expr(
     expr = ~ purrr::map_lgl(
-      .x = total_cacs_dataset[["CACS Numeric Safe 2"]], 
+      .x = .data[["CACS Numeric Safe 2"]], 
       .f = checkmate::testIntegerish
     ),
     na_pass = FALSE
