@@ -293,7 +293,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJlbnZpciI6Im51bWVyaWMgdG8gaW50
 <section id="what-about-na-values" class="level2">
 <h2 class="anchored" data-anchor-id="what-about-na-values">What about <code>NA</code> values</h2>
 <p>If there is need to also catch rows with <code>NA</code> values, using the argument <code>na_pass = FALSE</code> in <a href="https://rstudio.github.io/pointblank/reference/col_vals_expr.html" target="_blank"><code>pointblank::col_vals_exp</code></a> will not work.</p>
-<p>This is because <a href="https://mllg.github.io/checkmate/reference/checkIntegerish.html" target="_blank"><code>checkmate::testIntegerish</code></a> will return <code>FALSE</code> if the input is <code>NA</code>. Thus the predicate expression will never return an <code>NA</code> value.</p>
+<p>This is because <a href="https://mllg.github.io/checkmate/reference/checkIntegerish.html" target="_blank"><code>checkmate::testIntegerish</code></a> will return <code>TRUE</code> if the input is <code>NA</code>. Thus the predicate expression will never return an <code>NA</code> value.</p>
 <div class="cell" data-envir="numeric to integer" data-autorun="true">
 <div>
 <div id="webr-10" class="exercise-cell">

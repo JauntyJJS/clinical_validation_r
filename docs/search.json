@@ -186,7 +186,7 @@
     "href": "getting_started/convert_numeric_to_integer.html#what-about-na-values",
     "title": "Safe Conversion from Numeric to Integer",
     "section": "What about NA values",
-    "text": "What about NA values\nIf there is need to also catch rows with NA values, using the argument na_pass = FALSE in pointblank::col_vals_exp will not work.\nThis is because checkmate::testIntegerish will return FALSE if the input is NA. Thus the predicate expression will never return an NA value.\n\n\n\n\n\n\n\n\nOne way to overcome this is to add another validation using the function pointblank::col_vals_not_null",
+    "text": "What about NA values\nIf there is need to also catch rows with NA values, using the argument na_pass = FALSE in pointblank::col_vals_exp will not work.\nThis is because checkmate::testIntegerish will return TRUE if the input is NA. Thus the predicate expression will never return an NA value.\n\n\n\n\n\n\n\n\nOne way to overcome this is to add another validation using the function pointblank::col_vals_not_null",
     "crumbs": [
       "Clinical Data Validation in R",
       "Safe Conversion from Numeric to Integer"

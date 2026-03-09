@@ -168,7 +168,7 @@ total_cacs_dataset |>
 
 If there is need to also catch rows with `NA` values, using the argument `na_pass = FALSE` in [`pointblank::col_vals_exp`](https://rstudio.github.io/pointblank/reference/col_vals_expr.html){target="_blank"} will not work.
 
-This is because [`checkmate::testIntegerish`](https://mllg.github.io/checkmate/reference/checkIntegerish.html){target="_blank"} will return `FALSE` if the input is `NA`. Thus the predicate expression will never return an `NA` value.
+This is because [`checkmate::testIntegerish`](https://mllg.github.io/checkmate/reference/checkIntegerish.html){target="_blank"} will return `TRUE` if the input is `NA`. Thus the predicate expression will never return an `NA` value.
 
 ```{webr}
 #| envir: numeric to integer
