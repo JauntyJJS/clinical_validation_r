@@ -93,10 +93,16 @@ The predicate expression can be done using the function [`checkmate::testInteger
 #| envir: numeric to integer
 #| label: identifying numeric values that cannot be safely converted to integer
 #| autorun: false
-purrr::map_lgl(
-  .x = total_cacs_dataset[["CACS Numeric Unsafe"]], 
-  .f = checkmate::testIntegerish
-)
+total_cacs_dataset |> 
+  dplyr::select(
+    c("Patient ID" , "CACS Numeric Unsafe")
+  ) |> 
+  dplyr::mutate(
+    safe_to_convert = purrr::map_lgl(
+      .x = .data[["CACS Numeric Unsafe"]], 
+      .f = checkmate::testIntegerish
+    )
+  )
 
 ```
 
@@ -112,9 +118,12 @@ total_cacs_dataset |>
     label = "CACS Numeric Dataset Vaidation"
   ) |> 
   pointblank::col_vals_expr(
-    expr = ~ purrr::map_lgl(
-      .x = .data[["CACS Numeric Unsafe"]], 
-      .f = checkmate::testIntegerish)
+    expr = pointblank::expr(
+      purrr::map_lgl(
+        .x = .data[["CACS Numeric Unsafe"]], 
+        .f = checkmate::testIntegerish
+      )
+    )
   ) |> 
   pointblank::interrogate() |> 
   pointblank::get_sundered_data(
@@ -131,18 +140,20 @@ Here is an example (using columns `CACS Numeric Safe 1` and `CACS Numeric Safe 2
 #| autorun: false
 total_cacs_dataset |> 
   pointblank::col_vals_expr(
-    expr = ~ purrr::map_lgl(
-      .x = .data[["CACS Numeric Safe 1"]], 
-      .f = checkmate::testIntegerish
-    ),
-    na_pass = TRUE
+    expr = pointblank::expr(
+      purrr::map_lgl(
+        .x = .data[["CACS Numeric Safe 1"]], 
+        .f = checkmate::testIntegerish
+      )
+    )
   ) |> 
   pointblank::col_vals_expr(
-    expr = ~ purrr::map_lgl(
-      .x = .data[["CACS Numeric Safe 2"]], 
-      .f = checkmate::testIntegerish
-    ),
-    na_pass = FALSE
+    expr = pointblank::expr(
+      purrr::map_lgl(
+        .x = .data[["CACS Numeric Safe 2"]], 
+        .f = checkmate::testIntegerish
+      )
+    )
   ) |> 
   dplyr::mutate(
     dplyr::across(
@@ -151,4 +162,58 @@ total_cacs_dataset |>
     )
   )
 
+```
+
+## What about `NA` values
+
+If there is need to also catch rows with `NA` values, using the argument `na_pass = FALSE` in [`pointblank::col_vals_exp`](https://rstudio.github.io/pointblank/reference/col_vals_expr.html){target="_blank"} will not work.
+
+This is because [`checkmate::testIntegerish`](https://mllg.github.io/checkmate/reference/checkIntegerish.html){target="_blank"} will return `FALSE` if the input is `NA`. Thus the predicate expression will never return an `NA` value.
+
+```{webr}
+#| envir: numeric to integer
+#| label: testIntegerish on NA values
+#| autorun: true
+checkmate::testIntegerish(NA)
+```
+
+One way to overcome this is to add another validation using the function [`pointblank::col_vals_not_null`](https://rstudio.github.io/pointblank/reference/col_vals_not_null.html){target="_blank"}
+
+```{webr}
+#| envir: numeric to integer
+#| label: safe conversion to integers and catch NA method 1
+#| autorun: false
+total_cacs_dataset |> 
+  pointblank::create_agent(
+    tbl_name = "CACS Numeric Dataset",
+    label = "CACS Numeric Dataset Vaidation"
+  ) |> 
+  pointblank::col_vals_not_null(
+    columns = colnames(total_cacs_dataset)
+  ) |> 
+  pointblank::col_vals_expr(
+    expr = pointblank::expr(
+      purrr::map_lgl(
+        .x = .data[["CACS Numeric Safe 1"]], 
+        .f = checkmate::testIntegerish
+      )
+    )
+  ) |> 
+  pointblank::col_vals_expr(
+    expr = pointblank::expr(
+      purrr::map_lgl(
+        .x = .data[["CACS Numeric Safe 2"]], 
+        .f = checkmate::testIntegerish
+      )
+    )
+  ) |> 
+  pointblank::col_vals_expr(
+    expr = pointblank::expr(
+      purrr::map_lgl(
+        .x = .data[["CACS Numeric Unsafe"]], 
+        .f = checkmate::testIntegerish
+      )
+    )
+  ) |> 
+  pointblank::interrogate()
 ```
