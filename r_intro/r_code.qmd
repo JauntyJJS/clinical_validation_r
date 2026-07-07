@@ -1,6 +1,7 @@
 ---
 title: "Getting Started"
 author: "Jeremy Selva"
+toc: true
 format: live-html
 engine: knitr
 ---
@@ -65,4 +66,164 @@ Here is an example of a function `Sys.time()` which does not need an argument. I
 Sys.time()
 ```
 
-## Assignment
+## Objects
+
+Most things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.
+
+Consider the line of code below,
+
+```r
+number_of_patients_in_ward_A <- 20
+```
+
+In this example, both `<-` and `20` are **objects** that R provides. The **variable** `number_of_patients_in_ward_A` is the object created. We assign the value `20` to `number_of_patients_in_ward_A` using the symbol `<-`. In R, the symbol `<-` is called an **object assignment operator**. It comprised of a "less than" symbol `<` and a hyphen `-`.
+
+As a result, `number_of_patients_in_ward_A` holds the value of `20`, which R then stored it into memory.
+
+```{webr}
+#| envir: r_as_calculator_example
+#| label: object assignement
+#| autorun: true
+number_of_patients_in_ward_A <- 20
+number_of_patients_in_ward_A
+```
+
+Since `number_of_patients_in_ward_A` is stored in memory as a number, we can perform different operations such as adding and removing patients.
+
+```{webr}
+#| envir: r_as_calculator_example
+#| label: patient calculation
+number_of_patients_in_ward_A + 10
+number_of_patients_in_ward_A - 10
+number_of_patients_in_ward_A * 10
+number_of_patients_in_ward_A / 10
+```
+
+## Data Types
+
+### Atomic Classes
+
+We share a few common atomic classes in R.
+
+   - logical (`TRUE`, `FALSE`)
+   - numeric (real or decimal) (`2`, `2.0`, `pi`)
+   - integer (`2L`, `as.integer(3)`)
+   - character (`"a"`, `"swc"`)
+
+They can be identified using the function `class()`. Below are some examples that you can try it out.
+
+```{webr}
+#| label: logical atomic classes
+i_am_true <- TRUE
+i_am_false <- FALSE
+i_am_not_applicable <- NA
+class(i_am_true)
+class(i_am_false)
+class(i_am_not_applicable)
+```
+
+```{webr}
+#| label: numeric atomic classes
+i_am_numeric <- 2.00
+i_am_pi <- pi
+class(i_am_numeric)
+```
+
+To assign an explicit integer, we add an `L` beside the number.
+
+```{webr}
+#| label: integer atomic classes
+i_am_integer <- 2L
+class(i_am_integer)
+```
+
+```{webr}
+#| label: character atomic classes
+encouragement <- "You can do this 🌈🌻✨😊❤"
+class(encouragement)
+```
+
+### Data Structure
+
+R also has several common data structures.
+
+   - vector
+   - factors (1st, 2nd, 3rd, ...)
+   - data frame
+
+A vector is an one-dimensional data structure of the same atomic class (logical, numeric, character, ...).
+To create a vector in R, we use the function `c()` works by combining objects together. Below are some examples done to create `ward_names` as a character vector and `number_of_patients` as a numeric vector. 
+
+```{webr}
+#| envir: making_datas
+#| label: hospital_vector_example 
+ward_names <- c("Ward A", "Ward B", "Ward C", "Ward D")
+number_of_patients <- c(10, 17, 12, 4)
+
+ward_names
+number_of_patients
+```
+
+We can check if a given variable is a vector using the function `is.vector`. In addition, `class()` can be used to identify which atomic class the vector contains.
+
+```{webr}
+#| envir: making_datas
+#| label: ward_names_check
+is.vector(ward_names)
+class(ward_names)
+```
+
+```{webr}
+#| envir: making_datas
+#| label: number_of_patients_check
+is.vector(number_of_patients)
+class(number_of_patients)
+```
+
+Factors are special kind of vectors that represent categorical data. They can be created using the `factor()` function. The most common input is a character vector. It also has a parameter called `levels` that accepts an optional vector of the unique values that tells R if the category has an order to follow.
+
+```{webr}
+#| envir: making_datas
+#| label: hospital_factor_example 
+ward_capacity <- factor(
+  c("medium", "high", "medium", "low"),
+  levels = c("low", "medium", "high")
+)
+
+ward_capacity
+```
+
+We can check if a given variable is a factor using the function `is.factor()` or `class()`.
+
+```{webr}
+#| envir: making_datas
+#| label: ward_capacity_check
+is.factor(ward_capacity)
+class(ward_capacity)
+```
+
+We can build **data frame** from the **vectors** created earlier using the function, `data.frame()`.
+
+```{webr}
+#| envir: making_datas
+#| label: hosptial_data
+hospital <- data.frame(
+  wards = ward_names,
+  patient_count = number_of_patients,
+  capacity = ward_capacity
+)
+
+hospital
+```
+
+We can check if a given variable is a data frame using the function `is.data.frame()`. `str()` helps to provide the atomic class information for each column in the data frame.
+
+```{webr}
+#| envir: making_datas
+#| label: data_frame_check
+is.data.frame(hospital)
+str(hospital)
+```
+
+
+<https://resbaz.github.io/2014-r-materials/lessons/01-intro_r/data-structures.html>

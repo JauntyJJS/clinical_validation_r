@@ -6,9 +6,9 @@ execute:
   freeze: false
 
 website:
-  page-navigation: true
-  # title: "Clinical Data Validation in R"
+  title: "Clinical Data Validation in R"
   description: A guide on how to do clinical data validation using some R packages.
+  page-navigation: true
   sidebar:
     logo: "images/image.jpg"
     background: "#F5F5F5"
@@ -24,18 +24,16 @@ website:
           - getting_started/treatment_control.qmd
           - getting_started/bmi.qmd
           - getting_started/convert_numeric_to_integer.qmd
-      - section: "R Programming Basics"  
+      - section: "R Programming"  
         contents:
           - r_intro/r_code.qmd
 
 format:
-  html: 
+  live-html:
     grid:
-      sidebar-width: 300px
-      body-width: 900px
-      margin-width: 300px
-      gutter-width: 1.5rem
-    backgroundcolor: "#F5F5F5"
+      sidebar-width: 270px
+      margin-width: 250px
+    backgroundcolor: "#FFFFFF"
 
 
 
