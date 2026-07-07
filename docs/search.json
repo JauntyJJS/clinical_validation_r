@@ -56,7 +56,7 @@
     "section": "",
     "text": "The pointblank package provides a wide range of validation rules that we can use to check our data.\nConsider this data set age_dataset consisting of the patient’s age printed using reactable.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Introduction"
     ]
   },
@@ -67,7 +67,7 @@
     "section": "Check if positive",
     "text": "Check if positive\nWe start by validating if the column Age is positive. We can use the function col_vals_gt() to do that.\nIn the code below, we check if the column Age is greater than 0 (a positive number). When there are no issues, the data set will be returned.\n\n\n\n\n\n\n\n\nThis gives us the leverage to carry on with the data pipeline, such as changing the name of a column.\n\n\n\n\n\n\n\n\nHere is the example when we validate column Age Invalid which has at least one non-positive row. In this case, an error will be provided, indicating how many rows do not meet the criteria.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Introduction"
     ]
   },
@@ -78,7 +78,7 @@
     "section": "Pointblank workflow (Simplified)",
     "text": "Pointblank workflow (Simplified)\nIn practice, you may have to identify the rows that fails the validation test and send them to your collaborators for clarification. This is how it can be done in three main steps.\nWe first create an agent object using the function create_agent() on age_dataset. Next, we assign the agent a validation plan using validation functions such as col_vals_gt(). Lastly, we run the function interrogate() for the agent to run the validation plan and gather some information.\nOnce the agent has finished the validation, it can be printed in the Viewer.\n\n\n\n\n\n\n\n\nYou can identify rows in the data that fail a validation step by clicking on the CSV button located at the last (EXT) column.\nWe can use the get_agent_report() function to further customise the report display.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Introduction"
     ]
   },
@@ -89,7 +89,7 @@
     "section": "Post validation workflow (Simplified)",
     "text": "Post validation workflow (Simplified)\nWe can extract the row data that didn’t pass a specific row-based validation steps with the get_data_extracts() function. The input i = 2 means we are only looking at data that failed during Step 2 (which is validating if the values in column Age Invalid is greater than 0).\n\n\n\n\n\n\n\n\nAfter data validation, you may want to split the data that pass and fail the validation plan into two separate groups. This can be done using the function get_sundered_data()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis ends our introduction. Check out the other chapters to see how more complicated data validation can be done.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Introduction"
     ]
   },
@@ -199,7 +199,7 @@
     "section": "",
     "text": "Consider this small data set treatment_group_dataset consisting of the patient’s treatment group in a clinical trial to understand the treatment effects of a pharmaceutical compound.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Validating Treatment Groupings"
     ]
   },
@@ -210,7 +210,7 @@
     "section": "Check if patient ID is unique and complete",
     "text": "Check if patient ID is unique and complete\nWe verify if the values in the column Patient ID are unique and complete using rows_distinct and rows_complete respectively.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Validating Treatment Groupings"
     ]
   },
@@ -221,8 +221,52 @@
     "section": "Check if all patients are given a treatment group",
     "text": "Check if all patients are given a treatment group\nIn this data set, a patient can only be assigned to either the Placebo or Treatment group. To verify this, we use the function col_vals_in_set. A new parameter to take note is set which we need to specify the relevant groups the column needs to have. This is done by setting set = c(\"Placebo\", \"Treatment\").\nHere is an example (using columns Balanced Grouping and Imbalanced Grouping) when the verification has no error.\n\n\n\n\n\n\n\n\nThe column Invalid Grouping has patients which do not pass the validation.\n\n\n\n\n\n\n\n\nWe can use create_agent(), interrogate() and get_sundered_data() to obtain patients with issues.\n\n\n\n\n\n\n\n\nWe can see that the patients that do not meet the criteria have either missing data or spelling mistakes.",
     "crumbs": [
-      "Clinical Data Validation in R",
+      "Validation Basics",
       "Validating Treatment Groupings"
+    ]
+  },
+  {
+    "objectID": "r_intro/r_code.html",
+    "href": "r_intro/r_code.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.",
+    "crumbs": [
+      "R Programming Basics",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "r_intro/r_code.html#introduction-to-r",
+    "href": "r_intro/r_code.html#introduction-to-r",
+    "title": "Getting Started",
+    "section": "",
+    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.",
+    "crumbs": [
+      "R Programming Basics",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "r_intro/r_code.html#functions",
+    "href": "r_intro/r_code.html#functions",
+    "title": "Getting Started",
+    "section": "Functions",
+    "text": "Functions\nLet’s take a look on this first line of code. Click on the button Run Code to see the output.\n\n\n\n\n\n\n\n\nYou will see that Hello R 😃 is printed to the screen.\nIn this example, print() is a function, and its job is to print whatever text we place in between the double quotes \". Try putting a different text in this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\nprint(\"Well done ! 👏\")\n\n\n\n\nFunction names are usually action words represented with an open and close parentheses () in the following form.\nbake(cake)\nIn the above example, bake() is the function and the input cake is formally called an argument of the function.\nIt is possible for a function to accept more than one arguments or no arguments at all.\nbake(cake, banana, chocolate)\nbake()\nHere is an example of a function Sys.time() which does not need an argument. It gives the current date, time and time zones value.",
+    "crumbs": [
+      "R Programming Basics",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "r_intro/r_code.html#assignment",
+    "href": "r_intro/r_code.html#assignment",
+    "title": "Getting Started",
+    "section": "Assignment",
+    "text": "Assignment",
+    "crumbs": [
+      "R Programming Basics",
+      "Getting Started"
     ]
   }
 ]

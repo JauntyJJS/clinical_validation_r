@@ -1,0 +1,68 @@
+---
+title: "Getting Started"
+author: "Jeremy Selva"
+format: live-html
+engine: knitr
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Introduction to R
+
+R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.
+
+Like learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.
+
+## Functions
+
+Let's take a look on this first line of code. Click on the button `Run Code` to see the output.
+
+```{webr}
+#| label: print function
+print("Hello R 😃")
+```
+
+You will see that `Hello R 😃` is printed to the screen.
+
+In this example, `print()` is a **function**, and its job is to print whatever text we place in between the double quotes `"`. Try putting a different text in this exercise below.
+
+```{webr}
+#| exercise: exercise_print
+print("_Your_text_here_")
+```
+
+::: { .solution exercise="exercise_print" }
+::: { .callout-tip collapse="false"}
+## Fully worked solution:
+
+```r
+print("Well done ! 👏")
+```
+
+:::
+:::
+
+
+**Function** names are usually action words represented with an open and close parentheses `()` in the following form.
+
+```r
+bake(cake)
+```
+
+In the above example, `bake()` is the function and the input `cake` is formally called an **argument** of the function.
+
+It is possible for a function to accept more than one arguments or no arguments at all.
+
+```r
+bake(cake, banana, chocolate)
+bake()
+```
+
+Here is an example of a function `Sys.time()` which does not need an argument. It gives the current date, time and time zones value.
+
+```{webr}
+#| label: print date time
+Sys.time()
+```
+
+## Assignment
