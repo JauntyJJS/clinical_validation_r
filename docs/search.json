@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Clinical Data Validation in R",
     "section": "",
-    "text": "This book provides structured examples of ways to do clinical data validation using some R packages such as pointblank.\n\n\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.\n\n\n\nHere are the R packages used in this website.\n\n\n\n\n\n\n\n\n\n\n\nHere are the R platform environment used in this analysis.\n\n\n\n\n\n\n\n\n\n\n\nPhoto by Dariusz Sankowski on StockSnap.",
+    "text": "This book provides structured examples of ways to do clinical data validation using some R packages such as pointblank.\n\n\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.\n\n\n\nHere are the R packages used in this website.\n\n\n\n\n\n\n\n\n\nHere are the R platform environment used in this analysis.\n\n\n\n\n\n\n\n\n\nPhoto by Dariusz Sankowski on StockSnap.",
     "crumbs": [
       "Clinical Data Validation in R"
     ]

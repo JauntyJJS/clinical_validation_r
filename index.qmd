@@ -35,7 +35,28 @@ This is not a beginner's introduction to R or data programming in general, thoug
 
 Here are the R packages used in this website.
 
-```{webr}
+```{r}
+#| label: R packages load
+#| message: false
+#| echo: false
+
+library(sessioninfo)
+library(fs)
+# library(quarto)
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(purrr)
+# library(forcats)
+# library(glue)
+# library(readxl)
+library(checkmate)
+library(reactable)
+library(pointblank)
+
+```
+
+```{r}
 #| label: R packages used
 #| message: false
 #| echo: false
@@ -69,7 +90,7 @@ reactable::reactable(
 
 Here are the R platform environment used in this analysis.
 
-```{webr}
+```{r}
 #| label: R platform used
 #| echo: false
 
