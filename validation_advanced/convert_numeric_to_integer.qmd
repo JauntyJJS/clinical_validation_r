@@ -25,6 +25,20 @@ webr:
 options(expressions=10000)
 ```
 
+:::{.goals}
+
+::::{.goals-header}
+Learning Goals
+::::
+
+::::{.goals-container}
+  * Understand the need to check if numeric values can be converted to integers.
+  * Use [`checkmate::testIntegerish`](https://mllg.github.io/checkmate/reference/checkIntegerish.html){target="_blank"} to check if an R object can be safely convertible to integer.
+  * Use [`col_vals_exp`](https://rstudio.github.io/pointblank/reference/col_vals_expr.html){target="_blank"} to check if a column satisfy a custom-made condition/expression.
+::::
+
+:::
+
 To save on memory space, sometimes you may wish to convert a `numeric` column to an `integer` column if it is safe to do so.
 
 Consider this small data set `total_cacs_dataset` consisting of the patient's total coronary calcium Agatston score.

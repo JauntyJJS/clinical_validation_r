@@ -23,6 +23,20 @@ webr:
 options(expressions=10000)
 ```
 
+:::{.goals}
+
+::::{.goals-header}
+Learning Goals
+::::
+
+::::{.goals-container}
+  * Introduce the R package [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"} and function [`col_vals_gt()`](https://rstudio.github.io/pointblank/reference/col_vals_gt.html){target="_blank"}
+  * Data validation workflow using [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"}.
+  * Post data validation workflow using [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"}.
+::::
+
+:::
+
 The [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"} package provides a wide range of validation rules that we can use to check our data.
 
 Consider this data set `age_dataset` consisting of the patient's age printed using [`reactable`](https://glin.github.io/reactable/){target="_blank"}.

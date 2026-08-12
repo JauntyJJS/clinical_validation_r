@@ -14,6 +14,20 @@ R is a programming language that was initially designed for statistical analysis
 
 Like learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.
 
+:::{.goals}
+
+::::{.goals-header}
+Learning Goals
+::::
+
+::::{.goals-container}
+  * Use functions from R.
+  * Understand objects from R.
+  * Know the different data types in R.
+::::
+
+:::
+
 ## Functions
 
 Let's take a look on this first line of code. Click on the button `Run Code` to see the output.
@@ -226,4 +240,4 @@ str(hospital)
 ```
 
 
-<https://resbaz.github.io/2014-r-materials/lessons/01-intro_r/data-structures.html>
+<!-- <https://resbaz.github.io/2014-r-materials/lessons/01-intro_r/data-structures.html> -->

@@ -23,6 +23,21 @@ webr:
 options(expressions=10000)
 ```
 
+:::{.goals}
+
+::::{.goals-header}
+Learning Goals
+::::
+
+::::{.goals-container}
+  * Revisiting [`col_vals_gt()`](https://rstudio.github.io/pointblank/reference/col_vals_gt.html){target="_blank"} to validate columns with missing values.
+  * Check if the provided columns are between two specific values using [`col_vals_between`](https://rstudio.github.io/pointblank/reference/col_vals_between.html){target="_blank"}.
+  * Validate specific rows of a given column using the parameter `preconditions`.
+  * Complete the validation of BMI using [`col_vals_gte`](https://rstudio.github.io/pointblank/reference/col_vals_gte.html){target="_blank"} and [`col_vals_lte`](https://rstudio.github.io/pointblank/reference/col_vals_lte.html){target="_blank"} with the parameter `preconditions`.  
+::::
+
+:::
+
 Consider this data set `bmi_dataset` consisting of the patient's bmi printed using [`reactable`](https://glin.github.io/reactable/){target="_blank"}.
 
 ```{webr}

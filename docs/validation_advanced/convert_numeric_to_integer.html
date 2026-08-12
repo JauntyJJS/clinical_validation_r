@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Safe Conversion from Numeric to Integer</title>
+<title>Safe Conversion from Numeric to Integer – Clinical Data Validation in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../r_intro/r_code.html" rel="next">
-<link href="../getting_started/bmi.html" rel="prev">
+<link href="../validation_basic/bmi.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-78fdc61879eec7b0a97ef81b1133deec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-331941346b404f3c77365cfff83edef0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -87,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/introduction.html">Validation Basics</a></li><li class="breadcrumb-item"><a href="../getting_started/convert_numeric_to_integer.html">Safe Conversion from Numeric to Integer</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../validation_advanced/convert_numeric_to_integer.html">Validation Advanced</a></li><li class="breadcrumb-item"><a href="../validation_advanced/convert_numeric_to_integer.html">Safe Conversion from Numeric to Integer</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,34 +121,45 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Validation Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../getting_started/introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../validation_basic/introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../getting_started/treatment_control.html" class="sidebar-item-text sidebar-link">
+  <a href="../validation_basic/treatment_control.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Validating Treatment Groupings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../getting_started/bmi.html" class="sidebar-item-text sidebar-link">
+  <a href="../validation_basic/bmi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Validating BMI</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Validation Advanced</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../getting_started/convert_numeric_to_integer.html" class="sidebar-item-text sidebar-link active">
+  <a href="../validation_advanced/convert_numeric_to_integer.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Safe Conversion from Numeric to Integer</span></a>
   </div>
 </li>
@@ -156,17 +167,23 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">R Programming Basics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">R Programming</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../r_intro/r_code.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r_intro/data_wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Data Wrangling</span></a>
   </div>
 </li>
       </ul>
@@ -190,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/introduction.html">Validation Basics</a></li><li class="breadcrumb-item"><a href="../getting_started/convert_numeric_to_integer.html">Safe Conversion from Numeric to Integer</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../validation_advanced/convert_numeric_to_integer.html">Validation Advanced</a></li><li class="breadcrumb-item"><a href="../validation_advanced/convert_numeric_to_integer.html">Safe Conversion from Numeric to Integer</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Safe Conversion from Numeric to Integer</h1>
 <p class="subtitle lead">Validating numbers before converting them to integers</p>
@@ -218,6 +235,18 @@ ul.task-list li input[type="checkbox"] {
 <script type="webr-1-contents">
 eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZW52aXIiOiJudW1lcmljIHRvIGludGVnZXIiLCJldmFsIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwibGFiZWwiOiJzZXQgZXhwcmVzc2lvbiIsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiXG4jIFNvIHRoYXQgd2UgY2FuIHByaW50IHBvaW50YmxhbmsgcmVzdWx0cyB0byB0aGUgc2NyZWVuXG5vcHRpb25zKGV4cHJlc3Npb25zPTEwMDAwKSJ9
 </script>
+</div>
+</div>
+<div class="goals">
+<div class="goals-header">
+<p>Learning Goals</p>
+</div>
+<div class="goals-container">
+<ul>
+<li>Understand the need to check if numeric values can be converted to integers.</li>
+<li>Use <a href="https://mllg.github.io/checkmate/reference/checkIntegerish.html" target="_blank"><code>checkmate::testIntegerish</code></a> to check if an R object can be safely convertible to integer.</li>
+<li>Use <a href="https://rstudio.github.io/pointblank/reference/col_vals_expr.html" target="_blank"><code>col_vals_exp</code></a> to check if a column satisfy a custom-made condition/expression.</li>
+</ul>
 </div>
 </div>
 <p>To save on memory space, sometimes you may wish to convert a <code>numeric</code> column to an <code>integer</code> column if it is safe to do so.</p>
@@ -366,7 +395,7 @@ eyJjb250ZW50cyI6W119
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../getting_started";
+window._ojs.paths.runtimeToDoc = "../../validation_advanced";
 window._ojs.paths.runtimeToRoot = "../..";
 window._ojs.paths.docToRoot = "..";
 window._ojs.selfContained = false;
@@ -773,7 +802,7 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../getting_started/bmi.html" class="pagination-link" aria-label="Validating BMI">
+      <a href="../validation_basic/bmi.html" class="pagination-link" aria-label="Validating BMI">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Validating BMI</span>
       </a>          
   </div>

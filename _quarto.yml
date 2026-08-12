@@ -20,16 +20,21 @@ website:
         # text: Welcome
       - section: "Validation Basics"
         contents:
-          - getting_started/introduction.qmd
-          - getting_started/treatment_control.qmd
-          - getting_started/bmi.qmd
-          - getting_started/convert_numeric_to_integer.qmd
+          - validation_basic/introduction.qmd
+          - validation_basic/treatment_control.qmd
+          - validation_basic/bmi.qmd
+      - section: "Validation Advanced"
+        contents:
+          - validation_advanced/convert_numeric_to_integer.qmd
       - section: "R Programming"  
         contents:
           - r_intro/r_code.qmd
+          - r_intro/data_wrangling.qmd
 
 format:
   live-html:
+    theme:
+      - customstyle.scss
     grid:
       sidebar-width: 270px
       margin-width: 250px

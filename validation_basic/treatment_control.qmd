@@ -22,6 +22,20 @@ webr:
 options(expressions=10000)
 ```
 
+:::{.goals}
+
+::::{.goals-header}
+Learning Goals
+::::
+
+::::{.goals-container}
+  * Check if the provided columns have unique row values using [`rows_distinct`](https://rstudio.github.io/pointblank/reference/rows_distinct.html){target="_blank"}.
+  * Check if the provided columns do not have `NA` values using [`col_vals_not_null`](https://rstudio.github.io/pointblank/reference/col_vals_not_null.html){target="_blank"}.
+  * Check if the provided columns contain specific values from a given set using [`col_vals_in_set`](https://rstudio.github.io/pointblank/reference/col_vals_in_set.html){target="_blank"}.
+::::
+
+:::
+
 Consider this small data set `treatment_group_dataset` consisting of the patient's treatment group in a clinical trial to understand the treatment effects of a pharmaceutical compound.
 
 ```{webr}
@@ -62,7 +76,7 @@ reactable::reactable(
 
 ## Check if patient ID is unique and complete
 
-We verify if the values in the column `Patient ID` are unique  and complete using [`rows_distinct`](https://rstudio.github.io/pointblank/reference/rows_distinct.html){target="_blank"} and [`rows_complete`](https://rstudio.github.io/pointblank/reference/rows_complete.html){target="_blank"} respectively.
+We verify if the values in the column `Patient ID` are unique and have no missing values using [`rows_distinct`](https://rstudio.github.io/pointblank/reference/rows_distinct.html){target="_blank"} and [`pointblank::col_vals_not_null`](https://rstudio.github.io/pointblank/reference/col_vals_not_null.html){target="_blank"} respectively.
 
 ```{webr}
 #| envir: treatment group
@@ -72,7 +86,7 @@ treatment_group_dataset |>
   pointblank::rows_distinct(
     columns = c("Patient ID")
   ) |> 
-  pointblank::rows_complete(
+  pointblank::col_vals_not_null(
     columns = c("Patient ID")
   )
 

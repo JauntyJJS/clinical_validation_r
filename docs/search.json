@@ -1,10 +1,98 @@
 [
   {
+    "objectID": "validation_basic/treatment_control.html",
+    "href": "validation_basic/treatment_control.html",
+    "title": "Validating Treatment Groupings",
+    "section": "",
+    "text": "Consider this small data set treatment_group_dataset consisting of the patient’s treatment group in a clinical trial to understand the treatment effects of a pharmaceutical compound.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating Treatment Groupings"
+    ]
+  },
+  {
+    "objectID": "validation_basic/treatment_control.html#check-if-patient-id-is-unique-and-complete",
+    "href": "validation_basic/treatment_control.html#check-if-patient-id-is-unique-and-complete",
+    "title": "Validating Treatment Groupings",
+    "section": "Check if patient ID is unique and complete",
+    "text": "Check if patient ID is unique and complete\nWe verify if the values in the column Patient ID are unique and have no missing values using rows_distinct and pointblank::col_vals_not_null respectively.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating Treatment Groupings"
+    ]
+  },
+  {
+    "objectID": "validation_basic/treatment_control.html#check-if-all-patients-are-given-a-treatment-group",
+    "href": "validation_basic/treatment_control.html#check-if-all-patients-are-given-a-treatment-group",
+    "title": "Validating Treatment Groupings",
+    "section": "Check if all patients are given a treatment group",
+    "text": "Check if all patients are given a treatment group\nIn this data set, a patient can only be assigned to either the Placebo or Treatment group. To verify this, we use the function col_vals_in_set. A new parameter to take note is set which we need to specify the relevant groups the column needs to have. This is done by setting set = c(\"Placebo\", \"Treatment\").\nHere is an example (using columns Balanced Grouping and Imbalanced Grouping) when the verification has no error.\n\n\n\n\n\n\n\n\nThe column Invalid Grouping has patients which do not pass the validation.\n\n\n\n\n\n\n\n\nWe can use create_agent(), interrogate() and get_sundered_data() to obtain patients with issues.\n\n\n\n\n\n\n\n\nWe can see that the patients that do not meet the criteria have either missing data or spelling mistakes.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating Treatment Groupings"
+    ]
+  },
+  {
+    "objectID": "validation_basic/bmi.html",
+    "href": "validation_basic/bmi.html",
+    "title": "Validating BMI",
+    "section": "",
+    "text": "Consider this data set bmi_dataset consisting of the patient’s bmi printed using reactable.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "validation_basic/bmi.html#check-if-positive-again",
+    "href": "validation_basic/bmi.html#check-if-positive-again",
+    "title": "Validating BMI",
+    "section": "Check if positive again",
+    "text": "Check if positive again\nAgain, we can start by validating if the column BMI is positive by using use the function col_vals_gt().\nHowever, this time, we have an error.\n\n\n\n\n\n\n\n\nWhen we isolate the rows that fail the validation, we can see that the cause of this error was due to missing values.\n\n\n\n\n\n\n\n\nSometimes, we want to keep the data despite having missing values. As such, we can set the parameter na_pass = TRUE to allow validation workflow to bypass rows with missing values.\nHere is how it is done.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "validation_basic/bmi.html#check-if-between-two-specific-values",
+    "href": "validation_basic/bmi.html#check-if-between-two-specific-values",
+    "title": "Validating BMI",
+    "section": "Check if between two specific values",
+    "text": "Check if between two specific values\nIn reality, we will want to verify if the patient’s BMI is between two values (say 10 to 50 for example). We will isolate patients that do not meet this criteria for verification if the values are valid or not.\nIn this case, we can use the function col_vals_between instead. Instead of the parameter value, we have three additional variables (left, right and inclusive) that we can use to determine the range. The input inclusive is a two-element logical (TRUE or FALSE) vector that indicates whether the left and right bounds should be inclusive. In our example below, we set inclusive = (TRUE, TRUE) as we want to include the lower and upper bound.\nRemember to set the parameter na_pass = TRUE to ignore the missing values.\n\n\n\n\n\n\n\n\nHere we can see that Patient 14 has BMI of over 50 and Patient 16 has BMI of less than 15.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "validation_basic/bmi.html#creating-exceptions-using-preconditions",
+    "href": "validation_basic/bmi.html#creating-exceptions-using-preconditions",
+    "title": "Validating BMI",
+    "section": "Creating exceptions using preconditions",
+    "text": "Creating exceptions using preconditions\nSuppose that we have verified Patient 14 and Patient 16 and it turns out that these values are true. This means that in our validation steps, we have to omit these two patients as well.\nSuch exceptions can be done using the preconditions parameter. This special parameter accepts expression for changing the input table before proceeding with a particular validation step. Changes can include filtering of rows, adding new columns via joining with another data set or creating a new calculating column from other columns.\nFor this example, we set the precondition parameters to keep patients who are neither in the bmi_50_and_above_id nor bmi_15_and_below_id groups.",
+    "crumbs": [
+      "Validation Basics",
+      "Validating BMI"
+    ]
+  },
+  {
+    "objectID": "validation_basic/bmi.html#a-more-thorough-validation",
+    "href": "validation_basic/bmi.html#a-more-thorough-validation",
+    "title": "Validating BMI",
+    "section": "A more thorough validation",
+    "text": "A more thorough validation\nA more thorough (and robust against changes in updated version of data sets) approach is to also verify if these patients in the bmi_50_and_above_id or bmi_15_and_below_id groups are equal to or above 50 and equal to or below 15 respectively.\nWe can do this using the col_vals_gte and col_vals_lte.\nTry out this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteHint\n\n\n\n\n\nConsider using the following preconditions parameters\n\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id))} for col_vals_gte\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_10_and_above_id))} for col_vals_lte\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\nbmi_50_and_above_id &lt;- c(\"Patient 14\")\nbmi_15_and_below_id &lt;- c(\"Patient 16\")\n\nbmi_dataset |&gt; \n  pointblank::col_vals_gte(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          .data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id)\n        )\n    },\n    value = 50,\n    na_pass = TRUE\n  ) |&gt; \n  pointblank::col_vals_lte(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          .data[[\"Patient ID\"]] %in% c(bmi_15_and_below_id)\n        )\n    },\n    value = 15,\n    na_pass = TRUE\n  ) |&gt; \n  pointblank::col_vals_between(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          !.data[[\"Patient ID\"]] %in% \n            c(bmi_15_and_below_id, bmi_50_and_above_id)\n        )\n    },\n    left = 15,\n    right = 50,\n    inclusive = c(TRUE, TRUE),\n    na_pass = TRUE\n  )",
+    "crumbs": [
+      "Validation Basics",
+      "Validating BMI"
+    ]
+  },
+  {
     "objectID": "r_intro/r_code.html",
     "href": "r_intro/r_code.html",
     "title": "Getting Started",
     "section": "",
-    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.",
+    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.\n\n\nLearning Goals\n\n\n\nUse functions from R.\nUnderstand objects from R.\nKnow the different data types in R.",
     "crumbs": [
       "R Programming",
       "Getting Started"
@@ -15,7 +103,7 @@
     "href": "r_intro/r_code.html#introduction-to-r",
     "title": "Getting Started",
     "section": "",
-    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.",
+    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.\n\n\nLearning Goals\n\n\n\nUse functions from R.\nUnderstand objects from R.\nKnow the different data types in R.",
     "crumbs": [
       "R Programming",
       "Getting Started"
@@ -33,190 +121,25 @@
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#assignment",
-    "href": "r_intro/r_code.html#assignment",
+    "objectID": "r_intro/r_code.html#objects",
+    "href": "r_intro/r_code.html#objects",
     "title": "Getting Started",
-    "section": "Assignment",
-    "text": "Assignment",
+    "section": "Objects",
+    "text": "Objects\nMost things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.\nConsider the line of code below,\nnumber_of_patients_in_ward_A &lt;- 20\nIn this example, both &lt;- and 20 are objects that R provides. The variable number_of_patients_in_ward_A is the object created. We assign the value 20 to number_of_patients_in_ward_A using the symbol &lt;-. In R, the symbol &lt;- is called an object assignment operator. It comprised of a “less than” symbol &lt; and a hyphen -.\nAs a result, number_of_patients_in_ward_A holds the value of 20, which R then stored it into memory.\n\n\n\n\n\n\n\n\nSince number_of_patients_in_ward_A is stored in memory as a number, we can perform different operations such as adding and removing patients.",
     "crumbs": [
       "R Programming",
       "Getting Started"
     ]
   },
   {
-    "objectID": "getting_started/treatment_control.html",
-    "href": "getting_started/treatment_control.html",
-    "title": "Validating Treatment Groupings",
-    "section": "",
-    "text": "Consider this small data set treatment_group_dataset consisting of the patient’s treatment group in a clinical trial to understand the treatment effects of a pharmaceutical compound.",
+    "objectID": "r_intro/r_code.html#data-types",
+    "href": "r_intro/r_code.html#data-types",
+    "title": "Getting Started",
+    "section": "Data Types",
+    "text": "Data Types\n\nAtomic Classes\nWe share a few common atomic classes in R.\n\nlogical (TRUE, FALSE)\nnumeric (real or decimal) (2, 2.0, pi)\ninteger (2L, as.integer(3))\ncharacter (\"a\", \"swc\")\n\nThey can be identified using the function class(). Below are some examples that you can try it out.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo assign an explicit integer, we add an L beside the number.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData Structure\nR also has several common data structures.\n\nvector\nfactors (1st, 2nd, 3rd, …)\ndata frame\n\nA vector is an one-dimensional data structure of the same atomic class (logical, numeric, character, …). To create a vector in R, we use the function c() works by combining objects together. Below are some examples done to create ward_names as a character vector and number_of_patients as a numeric vector.\n\n\n\n\n\n\n\n\nWe can check if a given variable is a vector using the function is.vector. In addition, class() can be used to identify which atomic class the vector contains.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFactors are special kind of vectors that represent categorical data. They can be created using the factor() function. The most common input is a character vector. It also has a parameter called levels that accepts an optional vector of the unique values that tells R if the category has an order to follow.\n\n\n\n\n\n\n\n\nWe can check if a given variable is a factor using the function is.factor() or class().\n\n\n\n\n\n\n\n\nWe can build data frame from the vectors created earlier using the function, data.frame().\n\n\n\n\n\n\n\n\nWe can check if a given variable is a data frame using the function is.data.frame(). str() helps to provide the atomic class information for each column in the data frame.",
     "crumbs": [
-      "Validation Basics",
-      "Validating Treatment Groupings"
-    ]
-  },
-  {
-    "objectID": "getting_started/treatment_control.html#check-if-patient-id-is-unique-and-complete",
-    "href": "getting_started/treatment_control.html#check-if-patient-id-is-unique-and-complete",
-    "title": "Validating Treatment Groupings",
-    "section": "Check if patient ID is unique and complete",
-    "text": "Check if patient ID is unique and complete\nWe verify if the values in the column Patient ID are unique and complete using rows_distinct and rows_complete respectively.",
-    "crumbs": [
-      "Validation Basics",
-      "Validating Treatment Groupings"
-    ]
-  },
-  {
-    "objectID": "getting_started/treatment_control.html#check-if-all-patients-are-given-a-treatment-group",
-    "href": "getting_started/treatment_control.html#check-if-all-patients-are-given-a-treatment-group",
-    "title": "Validating Treatment Groupings",
-    "section": "Check if all patients are given a treatment group",
-    "text": "Check if all patients are given a treatment group\nIn this data set, a patient can only be assigned to either the Placebo or Treatment group. To verify this, we use the function col_vals_in_set. A new parameter to take note is set which we need to specify the relevant groups the column needs to have. This is done by setting set = c(\"Placebo\", \"Treatment\").\nHere is an example (using columns Balanced Grouping and Imbalanced Grouping) when the verification has no error.\n\n\n\n\n\n\n\n\nThe column Invalid Grouping has patients which do not pass the validation.\n\n\n\n\n\n\n\n\nWe can use create_agent(), interrogate() and get_sundered_data() to obtain patients with issues.\n\n\n\n\n\n\n\n\nWe can see that the patients that do not meet the criteria have either missing data or spelling mistakes.",
-    "crumbs": [
-      "Validation Basics",
-      "Validating Treatment Groupings"
-    ]
-  },
-  {
-    "objectID": "getting_started/convert_numeric_to_integer.html",
-    "href": "getting_started/convert_numeric_to_integer.html",
-    "title": "Safe Conversion from Numeric to Integer",
-    "section": "",
-    "text": "To save on memory space, sometimes you may wish to convert a numeric column to an integer column if it is safe to do so.\nConsider this small data set total_cacs_dataset consisting of the patient’s total coronary calcium Agatston score.",
-    "crumbs": [
-      "Validation Basics",
-      "Safe Conversion from Numeric to Integer"
-    ]
-  },
-  {
-    "objectID": "getting_started/convert_numeric_to_integer.html#dangers-of-unsafe-integer-conversion",
-    "href": "getting_started/convert_numeric_to_integer.html#dangers-of-unsafe-integer-conversion",
-    "title": "Safe Conversion from Numeric to Integer",
-    "section": "Dangers of Unsafe Integer Conversion",
-    "text": "Dangers of Unsafe Integer Conversion\nIf you take a look at the class (data type) of columns CACS Numeric Safe 1, CACS Numeric Safe 2, and CACS Numeric Unsafe, you will see that they are all set to numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe want to check in an automatic way if these column values can be safely be converted into type integer using the function as.integer() as doing this inaccurately can lead to a loss of precision. Observe that 746.9, 0.5 and 95.9 are converted to 746, 0 and 95.",
-    "crumbs": [
-      "Validation Basics",
-      "Safe Conversion from Numeric to Integer"
-    ]
-  },
-  {
-    "objectID": "getting_started/convert_numeric_to_integer.html#check-if-a-numeric-column-is-safe-for-integer-conversion",
-    "href": "getting_started/convert_numeric_to_integer.html#check-if-a-numeric-column-is-safe-for-integer-conversion",
-    "title": "Safe Conversion from Numeric to Integer",
-    "section": "Check if a numeric column is safe for integer conversion",
-    "text": "Check if a numeric column is safe for integer conversion\nWhile pointblank does not have a function that do that, we can create a customised validation that uses a predicate expression (a conditional R script of expression that returns a vector containing TRUE, FALSE or NA) and then use the function pointblank::col_vals_exp to identify which rows does not meet the predicate expression.\nThe predicate expression can be done using the function checkmate::testIntegerish which returns FALSE if the input vector cannot be safely convertible to integer. To ensure that we have a TRUE or FALSE output for each element in the input vector, we use the function purrr::map_lgl. Here is an example using the column CACS Numeric Unsafe as an input to returns a vector containing TRUE, FALSE or NA.\n\n\n\n\n\n\n\n\nWe then use pointblank::col_vals_exp with the the predicate expression to isolate rows that cannot be safely convert to integer in the column CACS Numeric Unsafe.\n\n\n\n\n\n\n\n\nHere is an example (using columns CACS Numeric Safe 1 and CACS Numeric Safe 2) when the verification has no error allowing us to safely do the conversion.",
-    "crumbs": [
-      "Validation Basics",
-      "Safe Conversion from Numeric to Integer"
-    ]
-  },
-  {
-    "objectID": "getting_started/convert_numeric_to_integer.html#what-about-na-values",
-    "href": "getting_started/convert_numeric_to_integer.html#what-about-na-values",
-    "title": "Safe Conversion from Numeric to Integer",
-    "section": "What about NA values",
-    "text": "What about NA values\nIf there is need to also catch rows with NA values, using the argument na_pass = FALSE in pointblank::col_vals_exp will not work.\nThis is because checkmate::testIntegerish will return TRUE if the input is NA. Thus the predicate expression will never return an NA value.\n\n\n\n\n\n\n\n\nOne way to overcome this is to add another validation using the function pointblank::col_vals_not_null",
-    "crumbs": [
-      "Validation Basics",
-      "Safe Conversion from Numeric to Integer"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html",
-    "href": "getting_started/bmi.html",
-    "title": "Validating BMI",
-    "section": "",
-    "text": "Consider this data set bmi_dataset consisting of the patient’s bmi printed using reactable.",
-    "crumbs": [
-      "Validation Basics",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#check-if-positive-again",
-    "href": "getting_started/bmi.html#check-if-positive-again",
-    "title": "Validating BMI",
-    "section": "Check if positive again",
-    "text": "Check if positive again\nAgain, we can start by validating if the column BMI is positive by using use the function col_vals_gt().\nHowever, this time, we have an error.\n\n\n\n\n\n\n\n\nWhen we isolate the rows that fail the validation, we can see that the cause of this error was due to missing values.\n\n\n\n\n\n\n\n\nSometimes, we want to keep the data despite having missing values. As such, we can set the parameter na_pass = TRUE to allow validation workflow to bypass rows with missing values.\nHere is how it is done.",
-    "crumbs": [
-      "Validation Basics",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#check-if-between-two-specific-values",
-    "href": "getting_started/bmi.html#check-if-between-two-specific-values",
-    "title": "Validating BMI",
-    "section": "Check if between two specific values",
-    "text": "Check if between two specific values\nIn reality, we will want to verify if the patient’s BMI is between two values (say 10 to 50 for example). We will isolate patients that do not meet this criteria for verification if the values are valid or not.\nIn this case, we can use the function col_vals_between instead. Instead of the parameter value, we have three additional variables (left, right and inclusive) that we can use to determine the range. The input inclusive is a two-element logical (TRUE or FALSE) vector that indicates whether the left and right bounds should be inclusive. In our example below, we set inclusive = (TRUE, TRUE) as we want to include the lower and upper bound.\nRemember to set the parameter na_pass = TRUE to ignore the missing values.\n\n\n\n\n\n\n\n\nHere we can see that Patient 14 has BMI of over 50 and Patient 16 has BMI of less than 15.",
-    "crumbs": [
-      "Validation Basics",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#creating-exceptions-using-preconditions",
-    "href": "getting_started/bmi.html#creating-exceptions-using-preconditions",
-    "title": "Validating BMI",
-    "section": "Creating exceptions using preconditions",
-    "text": "Creating exceptions using preconditions\nSuppose that we have verified Patient 14 and Patient 16 and it turns out that these values are true. This means that in our validation steps, we have to omit these two patients as well.\nSuch exceptions can be done using the preconditions parameter. This special parameter accepts expression for changing the input table before proceeding with a particular validation step. Changes can include filtering of rows, adding new columns via joining with another data set or creating a new calculating column from other columns.\nFor this example, we set the precondition parameters to keep patients who are neither in the bmi_50_and_above_id nor bmi_15_and_below_id groups.",
-    "crumbs": [
-      "Validation Basics",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/bmi.html#a-more-thorough-validation",
-    "href": "getting_started/bmi.html#a-more-thorough-validation",
-    "title": "Validating BMI",
-    "section": "A more thorough validation",
-    "text": "A more thorough validation\nA more thorough (and robust against changes in updated version of data sets) approach is to also verify if these patients in the bmi_50_and_above_id or bmi_15_and_below_id groups are equal to or above 50 and equal to or below 15 respectively.\nWe can do this using the col_vals_gte and col_vals_lte.\nTry out this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteHint\n\n\n\n\n\nConsider using the following preconditions parameters\n\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id))} for col_vals_gte\npreconditions = \\(x) {x |&gt; dplyr::filter(.data[[\"Patient ID\"]] %in% c(bmi_10_and_above_id))} for col_vals_lte\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\nbmi_50_and_above_id &lt;- c(\"Patient 14\")\nbmi_15_and_below_id &lt;- c(\"Patient 16\")\n\nbmi_dataset |&gt; \n  pointblank::col_vals_gte(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          .data[[\"Patient ID\"]] %in% c(bmi_50_and_above_id)\n        )\n    },\n    value = 50,\n    na_pass = TRUE\n  ) |&gt; \n  pointblank::col_vals_lte(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          .data[[\"Patient ID\"]] %in% c(bmi_15_and_below_id)\n        )\n    },\n    value = 15,\n    na_pass = TRUE\n  ) |&gt; \n  pointblank::col_vals_between(\n    columns = c(\"BMI\"),\n    preconditions = \\(x) {\n      x |&gt; \n        dplyr::filter(\n          !.data[[\"Patient ID\"]] %in% \n            c(bmi_15_and_below_id, bmi_50_and_above_id)\n        )\n    },\n    left = 15,\n    right = 50,\n    inclusive = c(TRUE, TRUE),\n    na_pass = TRUE\n  )",
-    "crumbs": [
-      "Validation Basics",
-      "Validating BMI"
-    ]
-  },
-  {
-    "objectID": "getting_started/introduction.html",
-    "href": "getting_started/introduction.html",
-    "title": "Introduction",
-    "section": "",
-    "text": "The pointblank package provides a wide range of validation rules that we can use to check our data.\nConsider this data set age_dataset consisting of the patient’s age printed using reactable.",
-    "crumbs": [
-      "Validation Basics",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "getting_started/introduction.html#check-if-positive",
-    "href": "getting_started/introduction.html#check-if-positive",
-    "title": "Introduction",
-    "section": "Check if positive",
-    "text": "Check if positive\nWe start by validating if the column Age is positive. We can use the function col_vals_gt() to do that.\nIn the code below, we check if the column Age is greater than 0 (a positive number). When there are no issues, the data set will be returned.\n\n\n\n\n\n\n\n\nThis gives us the leverage to carry on with the data pipeline, such as changing the name of a column.\n\n\n\n\n\n\n\n\nHere is the example when we validate column Age Invalid which has at least one non-positive row. In this case, an error will be provided, indicating how many rows do not meet the criteria.",
-    "crumbs": [
-      "Validation Basics",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "getting_started/introduction.html#pointblank-workflow-simplified",
-    "href": "getting_started/introduction.html#pointblank-workflow-simplified",
-    "title": "Introduction",
-    "section": "Pointblank workflow (Simplified)",
-    "text": "Pointblank workflow (Simplified)\nIn practice, you may have to identify the rows that fails the validation test and send them to your collaborators for clarification. This is how it can be done in three main steps.\nWe first create an agent object using the function create_agent() on age_dataset. Next, we assign the agent a validation plan using validation functions such as col_vals_gt(). Lastly, we run the function interrogate() for the agent to run the validation plan and gather some information.\nOnce the agent has finished the validation, it can be printed in the Viewer.\n\n\n\n\n\n\n\n\nYou can identify rows in the data that fail a validation step by clicking on the CSV button located at the last (EXT) column.\nWe can use the get_agent_report() function to further customise the report display.",
-    "crumbs": [
-      "Validation Basics",
-      "Introduction"
-    ]
-  },
-  {
-    "objectID": "getting_started/introduction.html#post-validation-workflow-simplified",
-    "href": "getting_started/introduction.html#post-validation-workflow-simplified",
-    "title": "Introduction",
-    "section": "Post validation workflow (Simplified)",
-    "text": "Post validation workflow (Simplified)\nWe can extract the row data that didn’t pass a specific row-based validation steps with the get_data_extracts() function. The input i = 2 means we are only looking at data that failed during Step 2 (which is validating if the values in column Age Invalid is greater than 0).\n\n\n\n\n\n\n\n\nAfter data validation, you may want to split the data that pass and fail the validation plan into two separate groups. This can be done using the function get_sundered_data()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis ends our introduction. Check out the other chapters to see how more complicated data validation can be done.",
-    "crumbs": [
-      "Validation Basics",
-      "Introduction"
+      "R Programming",
+      "Getting Started"
     ]
   },
   {
@@ -270,69 +193,102 @@
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#object-assignment",
-    "href": "r_intro/r_code.html#object-assignment",
-    "title": "Getting Started",
-    "section": "Object Assignment",
-    "text": "Object Assignment\nEverything in R is an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.\nConsider the line of code below,\nnumber_of_patients_in_ward_A &lt;- 100\nIn this example, both &lt;- and 100 are objects that R provides. The variable number_of_patients_in_ward_A is the object created. We assign the value 100 to number_of_patients_in_ward_A using the symbol &lt;-. In R, the symbol &lt;- is called an object assignment operator. It comprised of a “less than” symbol &lt; and a hyphen -.\nAs a result, number_of_patients_in_ward_A holds the value of 100, which R then stored it into memory.\n\n\n\n\n\n\n\n\nSince number_of_patients_in_ward_A is stored in memory as a number, we can perform different operations such as adding and removing patients.",
+    "objectID": "r_intro/data_wrangling.html",
+    "href": "r_intro/data_wrangling.html",
+    "title": "Basic Data Wrangling",
+    "section": "",
+    "text": "In this session, we will go through the basic of data wrangling using a dataset from the R package medicaldata.",
     "crumbs": [
       "R Programming",
-      "Getting Started"
+      "Basic Data Wrangling"
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#object-assignment-1",
-    "href": "r_intro/r_code.html#object-assignment-1",
-    "title": "Getting Started",
-    "section": "Object Assignment",
-    "text": "Object Assignment",
+    "objectID": "validation_advanced/convert_numeric_to_integer.html",
+    "href": "validation_advanced/convert_numeric_to_integer.html",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "",
+    "text": "To save on memory space, sometimes you may wish to convert a numeric column to an integer column if it is safe to do so.\nConsider this small data set total_cacs_dataset consisting of the patient’s total coronary calcium Agatston score.",
     "crumbs": [
-      "R Programming",
-      "Getting Started"
+      "Validation Advanced",
+      "Safe Conversion from Numeric to Integer"
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#objects",
-    "href": "r_intro/r_code.html#objects",
-    "title": "Getting Started",
-    "section": "Objects",
-    "text": "Objects\nMost things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.\nConsider the line of code below,\nnumber_of_patients_in_ward_A &lt;- 20\nIn this example, both &lt;- and 20 are objects that R provides. The variable number_of_patients_in_ward_A is the object created. We assign the value 20 to number_of_patients_in_ward_A using the symbol &lt;-. In R, the symbol &lt;- is called an object assignment operator. It comprised of a “less than” symbol &lt; and a hyphen -.\nAs a result, number_of_patients_in_ward_A holds the value of 20, which R then stored it into memory.\n\n\n\n\n\n\n\n\nSince number_of_patients_in_ward_A is stored in memory as a number, we can perform different operations such as adding and removing patients.",
+    "objectID": "validation_advanced/convert_numeric_to_integer.html#dangers-of-unsafe-integer-conversion",
+    "href": "validation_advanced/convert_numeric_to_integer.html#dangers-of-unsafe-integer-conversion",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "Dangers of Unsafe Integer Conversion",
+    "text": "Dangers of Unsafe Integer Conversion\nIf you take a look at the class (data type) of columns CACS Numeric Safe 1, CACS Numeric Safe 2, and CACS Numeric Unsafe, you will see that they are all set to numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe want to check in an automatic way if these column values can be safely be converted into type integer using the function as.integer() as doing this inaccurately can lead to a loss of precision. Observe that 746.9, 0.5 and 95.9 are converted to 746, 0 and 95.",
     "crumbs": [
-      "R Programming",
-      "Getting Started"
+      "Validation Advanced",
+      "Safe Conversion from Numeric to Integer"
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#putting-them-together",
-    "href": "r_intro/r_code.html#putting-them-together",
-    "title": "Getting Started",
-    "section": "Putting them together",
-    "text": "Putting them together\nThe function c() works by combining objects together. Here is an example.\n\n\n\n\n\n\n\n\nThe output is a vector. A one dimensional data structure of the same data type. Likewise, we can build datasets from vector using the function, data.frame().\n\n\n\n\n\n\n\n\nMore information on data types can be found in the next section.",
+    "objectID": "validation_advanced/convert_numeric_to_integer.html#check-if-a-numeric-column-is-safe-for-integer-conversion",
+    "href": "validation_advanced/convert_numeric_to_integer.html#check-if-a-numeric-column-is-safe-for-integer-conversion",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "Check if a numeric column is safe for integer conversion",
+    "text": "Check if a numeric column is safe for integer conversion\nWhile pointblank does not have a function that do that, we can create a customised validation that uses a predicate expression (a conditional R script of expression that returns a vector containing TRUE, FALSE or NA) and then use the function pointblank::col_vals_exp to identify which rows does not meet the predicate expression.\nThe predicate expression can be done using the function checkmate::testIntegerish which returns FALSE if the input vector cannot be safely convertible to integer. To ensure that we have a TRUE or FALSE output for each element in the input vector, we use the function purrr::map_lgl. Here is an example using the column CACS Numeric Unsafe as an input to returns a vector containing TRUE, FALSE or NA.\n\n\n\n\n\n\n\n\nWe then use pointblank::col_vals_exp with the the predicate expression to isolate rows that cannot be safely convert to integer in the column CACS Numeric Unsafe.\n\n\n\n\n\n\n\n\nHere is an example (using columns CACS Numeric Safe 1 and CACS Numeric Safe 2) when the verification has no error allowing us to safely do the conversion.",
     "crumbs": [
-      "R Programming",
-      "Getting Started"
+      "Validation Advanced",
+      "Safe Conversion from Numeric to Integer"
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#object-types",
-    "href": "r_intro/r_code.html#object-types",
-    "title": "Getting Started",
-    "section": "Object Types",
-    "text": "Object Types\nIn this section, we will cover the common object types in R.",
+    "objectID": "validation_advanced/convert_numeric_to_integer.html#what-about-na-values",
+    "href": "validation_advanced/convert_numeric_to_integer.html#what-about-na-values",
+    "title": "Safe Conversion from Numeric to Integer",
+    "section": "What about NA values",
+    "text": "What about NA values\nIf there is need to also catch rows with NA values, using the argument na_pass = FALSE in pointblank::col_vals_exp will not work.\nThis is because checkmate::testIntegerish will return TRUE if the input is NA. Thus the predicate expression will never return an NA value.\n\n\n\n\n\n\n\n\nOne way to overcome this is to add another validation using the function pointblank::col_vals_not_null",
     "crumbs": [
-      "R Programming",
-      "Getting Started"
+      "Validation Advanced",
+      "Safe Conversion from Numeric to Integer"
     ]
   },
   {
-    "objectID": "r_intro/r_code.html#data-types",
-    "href": "r_intro/r_code.html#data-types",
-    "title": "Getting Started",
-    "section": "Data Types",
-    "text": "Data Types\n\nAtomic Classes\nWe share a few common atomic classes in R.\n\nlogical (TRUE, FALSE)\nnumeric (real or decimal) (2, 2.0, pi)\ninteger (2L, as.integer(3))\ncharacter (\"a\", \"swc\")\n\nThey can be identified using the function class(). Below are some examples that you can try it out.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo assign an explicit integer, we add an L beside the number.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData Structure\nR also has several common data structures.\n\nvector\nfactors (1st, 2nd, 3rd, …)\ndata frame\n\nA vector is an one-dimensional data structure of the same atomic class (logical, numeric, character, …). To create a vector in R, we use the function c() works by combining objects together. Below are some examples done to create ward_names as a character vector and number_of_patients as a numeric vector.\n\n\n\n\n\n\n\n\nWe can check if a given variable is a vector using the function is.vector. In addition, class() can be used to identify which atomic class the vector contains.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFactors are special kind of vectors that represent categorical data. They can be created using the factor() function. The most common input is a character vector. It also has a parameter called levels that accepts an optional vector of the unique values that tells R if the category has an order to follow.\n\n\n\n\n\n\n\n\nWe can check if a given variable is a factor using the function is.factor() or class().\n\n\n\n\n\n\n\n\nWe can build data frame from the vectors created earlier using the function, data.frame().\n\n\n\n\n\n\n\n\nWe can check if a given variable is a data frame using the function is.data.frame(). str() helps to provide the atomic class information for each column in the data frame.\n\n\n\n\n\n\n\n\nhttps://resbaz.github.io/2014-r-materials/lessons/01-intro_r/data-structures.html",
+    "objectID": "validation_basic/introduction.html",
+    "href": "validation_basic/introduction.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "The pointblank package provides a wide range of validation rules that we can use to check our data.\nConsider this data set age_dataset consisting of the patient’s age printed using reactable.",
     "crumbs": [
-      "R Programming",
-      "Getting Started"
+      "Validation Basics",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "validation_basic/introduction.html#check-if-positive",
+    "href": "validation_basic/introduction.html#check-if-positive",
+    "title": "Introduction",
+    "section": "Check if positive",
+    "text": "Check if positive\nWe start by validating if the column Age is positive. We can use the function col_vals_gt() to do that.\nIn the code below, we check if the column Age is greater than 0 (a positive number). When there are no issues, the data set will be returned.\n\n\n\n\n\n\n\n\nThis gives us the leverage to carry on with the data pipeline, such as changing the name of a column.\n\n\n\n\n\n\n\n\nHere is the example when we validate column Age Invalid which has at least one non-positive row. In this case, an error will be provided, indicating how many rows do not meet the criteria.",
+    "crumbs": [
+      "Validation Basics",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "validation_basic/introduction.html#pointblank-workflow-simplified",
+    "href": "validation_basic/introduction.html#pointblank-workflow-simplified",
+    "title": "Introduction",
+    "section": "Pointblank workflow (Simplified)",
+    "text": "Pointblank workflow (Simplified)\nIn practice, you may have to identify the rows that fails the validation test and send them to your collaborators for clarification. This is how it can be done in three main steps.\nWe first create an agent object using the function create_agent() on age_dataset. Next, we assign the agent a validation plan using validation functions such as col_vals_gt(). Lastly, we run the function interrogate() for the agent to run the validation plan and gather some information.\nOnce the agent has finished the validation, it can be printed in the Viewer.\n\n\n\n\n\n\n\n\nYou can identify rows in the data that fail a validation step by clicking on the CSV button located at the last (EXT) column.\nWe can use the get_agent_report() function to further customise the report display.",
+    "crumbs": [
+      "Validation Basics",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "validation_basic/introduction.html#post-validation-workflow-simplified",
+    "href": "validation_basic/introduction.html#post-validation-workflow-simplified",
+    "title": "Introduction",
+    "section": "Post validation workflow (Simplified)",
+    "text": "Post validation workflow (Simplified)\nWe can extract the row data that didn’t pass a specific row-based validation steps with the get_data_extracts() function. The input i = 2 means we are only looking at data that failed during Step 2 (which is validating if the values in column Age Invalid is greater than 0).\n\n\n\n\n\n\n\n\nAfter data validation, you may want to split the data that pass and fail the validation plan into two separate groups. This can be done using the function get_sundered_data()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis ends our introduction. Check out the other chapters to see how more complicated data validation can be done.",
+    "crumbs": [
+      "Validation Basics",
+      "Introduction"
     ]
   }
 ]

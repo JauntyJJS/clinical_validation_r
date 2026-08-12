@@ -1,0 +1,21 @@
+---
+title: "Basic Data Wrangling"
+author: "Jeremy Selva"
+toc: true
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - medicaldata
+
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+In this session, we will go through the basic of data wrangling using a dataset from the R package [`medicaldata`](https://higgi13425.github.io/medicaldata/){target="_blank"}.
+
+```{webr}
+#| label: cath_data
+str(medicaldata::opt)
+```
+
