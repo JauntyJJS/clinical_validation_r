@@ -2,8 +2,6 @@
 title: Validating Treatment Groupings
 subtitle: Dealing with uniqueness, completeness and sets
 format: live-html
-engine: knitr
-toc: true
 webr:
   packages:
     - tibble

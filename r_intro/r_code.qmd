@@ -1,9 +1,7 @@
 ---
 title: "Getting Started"
 author: "Jeremy Selva"
-toc: true
 format: live-html
-engine: knitr
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -24,15 +22,17 @@ Learning Goals
   * Use functions from R.
   * Understand objects from R.
   * Know the different data types in R.
+  * Perform comparisons in R
 ::::
 
 :::
 
-## Functions
+### Functions
 
 Let's take a look on this first line of code. Click on the button `Run Code` to see the output.
 
 ```{webr}
+#| caption: Using the print function
 #| label: print function
 print("Hello R 😃")
 ```
@@ -42,13 +42,14 @@ You will see that `Hello R 😃` is printed to the screen.
 In this example, `print()` is a **function**, and its job is to print whatever text we place in between the double quotes `"`. Try putting a different text in this exercise below.
 
 ```{webr}
+#| caption: Exercise using print
 #| exercise: exercise_print
 print("_Your_text_here_")
 ```
 
 ::: { .solution exercise="exercise_print" }
 ::: { .callout-tip collapse="false"}
-## Fully worked solution:
+#### Fully worked solution:
 
 ```r
 print("Well done ! 👏")
@@ -80,7 +81,7 @@ Here is an example of a function `Sys.time()` which does not need an argument. I
 Sys.time()
 ```
 
-## Objects
+### Objects
 
 Most things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.
 
@@ -239,5 +240,236 @@ is.data.frame(hospital)
 str(hospital)
 ```
 
+## Operators
+
+Consider the number of patients in different wards.
+
+```{webr}
+#| envir: making_comparisons
+#| label: patient in different wards
+#| autorun: true
+patient_count_in_ward_A <- 10
+patient_count_in_ward_B <- 5
+patient_count_in_ward_C <- 12
+patient_count_in_ward_D <- 10
+patient_count_in_ward_E <- 20
+
+```
+
+### Comparison Operators
+
+R has operators (`>`, `>=`, `<`, `<=`, `==`, `!=`) to compare the relationship between two values. They usually returns `TRUE` or `FALSE`. 
+
+::: {.panel-tabset}
+
+#### >
+
+The `>` operator means greater than.
+
+```{webr}
+#| envir: making_comparisons
+#| label: greater than
+patient_count_in_ward_A > patient_count_in_ward_B
+patient_count_in_ward_A > patient_count_in_ward_C
+patient_count_in_ward_A > patient_count_in_ward_D
+```
+
+#### >=
+
+The `>=` operator means greater than or equal to.
+
+```{webr}
+#| envir: making_comparisons
+#| label: greater than or equal to
+patient_count_in_ward_A > patient_count_in_ward_B
+patient_count_in_ward_A > patient_count_in_ward_C
+patient_count_in_ward_A > patient_count_in_ward_D
+```
+
+#### <
+
+The `<` operator means less than.
+
+```{webr}
+#| envir: making_comparisons
+#| label: less than
+patient_count_in_ward_A < patient_count_in_ward_B
+patient_count_in_ward_A < patient_count_in_ward_C
+patient_count_in_ward_A < patient_count_in_ward_D
+```
+
+#### <=
+
+The `<=` operator means less than or equal to.
+
+```{webr}
+#| envir: making_comparisons
+#| label: less than or equal to
+patient_count_in_ward_A <= patient_count_in_ward_B
+patient_count_in_ward_A <= patient_count_in_ward_C
+patient_count_in_ward_A <= patient_count_in_ward_D
+```
+
+#### ==
+
+The `==` operator means equal to.
+
+```{webr}
+#| envir: making_comparisons
+#| label: equal to
+patient_count_in_ward_A == patient_count_in_ward_B
+patient_count_in_ward_A == patient_count_in_ward_C
+patient_count_in_ward_A == patient_count_in_ward_D
+```
+
+#### !=
+
+The `!=` operator means not equal to.
+
+```{webr}
+#| envir: making_comparisons
+#| label: not equal to
+patient_count_in_ward_A != patient_count_in_ward_B
+patient_count_in_ward_A != patient_count_in_ward_C
+patient_count_in_ward_A != patient_count_in_ward_D
+```
+
+:::
+
+These comparison operators can be used to compare each element in a vector individually.
+
+```{webr}
+#| envir: making_comparisons
+#| label: max capacity
+#| autorun: true
+wards <- c(
+  patient_count_in_ward_A,
+  patient_count_in_ward_B,
+  patient_count_in_ward_C,
+  patient_count_in_ward_D,
+  patient_count_in_ward_E
+)
+
+max_capacity <- 12
+desired_capacity_each_ward <- c(10, 5, 10, 5, 10)
+```
+
+```{webr}
+#| envir: making_comparisons
+#| label: vector comparison one
+wards <= max_capacity
+wards <= desired_capacity_each_ward
+
+```
+
+### Logical Operators
+
+R has logical operators (`&`, `|`, `!`, `is.na()`, `isTRUE()`, `isFALSE()`, `%in%`, `%notin%`) to compare multiple operation. They usually returns `TRUE` or `FALSE`.
+
+::: {.panel-tabset}
+
+#### &
+
+The `&` operator means logical AND which returns `TRUE` if both conditions are true.
+
+```{webr}
+#| envir: making_comparisons
+#| label: logical AND
+# TRUE & TRUE case
+(patient_count_in_ward_A < max_capacity) & (patient_count_in_ward_B < max_capacity)
+# TRUE & FALSE case
+(patient_count_in_ward_A < max_capacity) & (patient_count_in_ward_E < max_capacity)
+```
+
+#### |
+
+The `|` operator means logical OR which returns `TRUE` if at least one of the conditions is true.
+
+```{webr}
+#| envir: making_comparisons
+#| label: logical OR
+# TRUE & FALSE case
+(patient_count_in_ward_A < max_capacity) | 
+(patient_count_in_ward_E < max_capacity)
+# FALSE & FALSE case
+(patient_count_in_ward_A < patient_count_in_ward_B) | 
+(patient_count_in_ward_A < patient_count_in_ward_D)
+```
+
+#### !
+
+The `!` operator means logical NOT which returns `TRUE` if the condition is false.
+
+```{webr}
+#| envir: making_comparisons
+#| label: logical NOT
+# !(10 < 12)
+!(patient_count_in_ward_A < max_capacity)
+# !(20 < 12)
+!(patient_count_in_ward_E < max_capacity)
+```
+
+#### is.na()
+
+The `is.na` function returns TRUE if a value is `NA`.
+
+```{webr}
+#| envir: making_comparisons
+#| label: is.na usage
+x <- c(1, 2, NA, 4)
+is.na(x)
+```
+
+#### isTRUE()
+
+The `isTRUE` function returns TRUE for TRUE elements, FALSE for FALSE elements. Please note that this function only works in length one logical vectors. To apply this check element wise on a logical vector greater than 1, one work around is to use `Vectorize`.
+
+```{webr}
+#| envir: making_comparisons
+#| label: isTRUE usage
+isTRUE(TRUE)
+isTRUE(FALSE)
+isTRUE(NA)
+# To check element wise
+is_true <- Vectorize(isTRUE)
+is_true(c(TRUE, FALSE, NA))
+```
+
+#### isFALSE()
+
+The `isFALSE` function returns FALSE for TRUE elements, TRUE for FALSE elements.
+
+```{webr}
+#| envir: making_comparisons
+#| label: isFALSE usage
+isFALSE(TRUE)
+isFALSE(FALSE)
+isFALSE(NA)
+# To check element wise
+is_false <- Vectorize(isFALSE)
+is_false(c(TRUE, FALSE, NA))
+```
+
+#### %in%
+
+The `%in%` operator checks if a value or set of values on the left side is present in a vector or list on the right side.
+
+```{webr}
+#| envir: making_comparisons
+#| label: in usage
+c("😁", "🤣", "😎", "😀") %in% c("🫩", "😎", "😀", "🥰", "🤩", "🙂")
+```
+
+#### %notin%
+
+The `%notin%` operator was introduced in R version 4.6.0. It checks if a value or set of values on the left side is absent in a vector or list on the right side.
+
+```{webr}
+#| envir: making_comparisons
+#| label: notin usage
+c("😁", "🤣", "😎", "😀") %notin% c("🫩", "😎", "😀", "🥰", "🤩", "🙂")
+```
+
+:::
 
 <!-- <https://resbaz.github.io/2014-r-materials/lessons/01-intro_r/data-structures.html> -->

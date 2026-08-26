@@ -3,7 +3,6 @@ title: "Clinical Data Validation in R"
 subtitle: "A guide on how to do clinical data validation using some R packages."
 author: "Jeremy Selva"
 format: live-html
-engine: knitr
 webr:
   packages:
     - sessioninfo
@@ -22,6 +21,7 @@ webr:
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
 
 # Preface {.unnumbered}
 

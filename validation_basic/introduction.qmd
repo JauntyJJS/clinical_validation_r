@@ -1,9 +1,7 @@
 ---
 title: Introduction
 subtitle: A simple `pointblank` tutorial
-toc: true
 format: live-html
-engine: knitr
 webr:
   packages:
     - tibble
@@ -36,6 +34,9 @@ Learning Goals
 ::::
 
 :::
+
+
+<!-- -   [ ] Continue to the next section -->
 
 The [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"} package provides a wide range of validation rules that we can use to check our data.
 

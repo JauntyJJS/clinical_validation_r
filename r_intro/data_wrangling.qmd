@@ -1,9 +1,7 @@
 ---
 title: "Basic Data Wrangling"
 author: "Jeremy Selva"
-toc: true
 format: live-html
-engine: knitr
 webr:
   packages:
     - medicaldata
@@ -12,10 +10,54 @@ webr:
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-In this session, we will go through the basic of data wrangling using a dataset from the R package [`medicaldata`](https://higgi13425.github.io/medicaldata/){target="_blank"}.
+In this session, we will go through the basic of data wrangling using the [Obstetrics and Periodontal Therapy study dataset](https://higgi13425.github.io/medicaldata/reference/opt.html){target="_blank"} from the R package [`medicaldata`](https://higgi13425.github.io/medicaldata/){target="_blank"}.
+
+The Obstetrics and Periodontal Therapy study was a multi-center randomized controlled trial to determine if nonsurgical periodontal treatment intervention can reduce the risk of preterm birth (< 37 weeks) and low birth weight (< 2500 g) outcomes. 
+
+823 participants enrolled at 4 centers underwent stratified randomization, resulting in 413 women assigned to the treatment group and 410 to control. Treatment group consist of women treated before 21 weeks gestation (treatment) while the control consist of women treated after delivery (control). All participants were 13-16 weeks pregnant at time of randomization (baseline/visit 1).
+
+## Exploring the general data structure
+
+The data can be accessed from `medicaldata::opt`. However, we can see that using the `print` function alone has its limitations when the data has a large number of rows and columns.
+
+::: {.scrollable-output}
 
 ```{webr}
-#| label: cath_data
-str(medicaldata::opt)
+#| caption: Using the print function
+#| label: Viewing opt data using print
+print(medicaldata::opt)
 ```
 
+:::
+
+<br>
+
+We can start by identifying how many rows and columns `medicaldata::opt` has. This can be done using `nrow()` and `ncol()` respectively. The `dim()` function prints the numbers of rows and columns simultaneously.
+
+::: {.panel-tabset}
+
+### nrow
+
+```{webr}
+#| caption: Using the nrow function
+#| label: Viewing number of rows in opt
+nrow(medicaldata::opt)
+```
+
+### ncol
+
+```{webr}
+#| caption: Using the ncol function
+#| label: Viewing number of columns in opt
+ncol(medicaldata::opt)
+```
+
+### dim
+
+```{webr}
+#| caption: Using the dim function
+#| label: Viewing number of rows and columns in opt
+dim(medicaldata::opt)
+```
+
+:::

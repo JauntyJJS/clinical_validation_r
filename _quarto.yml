@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+
+engine: knitr
   
 execute:
   freeze: false
@@ -33,12 +35,18 @@ website:
 
 format:
   live-html:
+    toc: true
     theme:
       - customstyle.scss
     grid:
       sidebar-width: 270px
       margin-width: 250px
     backgroundcolor: "#FFFFFF"
-
+    # css: 
+    #   - _style.css
+    #   - _webex.css
+    # include-after-body: 
+    #   - _webex.js
+    #   - _displayall.js
 
 

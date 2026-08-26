@@ -92,7 +92,7 @@
     "href": "r_intro/r_code.html",
     "title": "Getting Started",
     "section": "",
-    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.\n\n\nLearning Goals\n\n\n\nUse functions from R.\nUnderstand objects from R.\nKnow the different data types in R.",
+    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.\n\n\nLearning Goals\n\n\n\nUse functions from R.\nUnderstand objects from R.\nKnow the different data types in R.\nPerform comparisons in R\n\n\n\n\n\nLet’s take a look on this first line of code. Click on the button Run Code to see the output.\n\n\n\n\n\n\n\n\nYou will see that Hello R 😃 is printed to the screen.\nIn this example, print() is a function, and its job is to print whatever text we place in between the double quotes \". Try putting a different text in this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\nprint(\"Well done ! 👏\")\n\n\n\n\nFunction names are usually action words represented with an open and close parentheses () in the following form.\nbake(cake)\nIn the above example, bake() is the function and the input cake is formally called an argument of the function.\nIt is possible for a function to accept more than one arguments or no arguments at all.\nbake(cake, banana, chocolate)\nbake()\nHere is an example of a function Sys.time() which does not need an argument. It gives the current date, time and time zones value.\n\n\n\n\n\n\n\n\n\n\n\nMost things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.\nConsider the line of code below,\nnumber_of_patients_in_ward_A &lt;- 20\nIn this example, both &lt;- and 20 are objects that R provides. The variable number_of_patients_in_ward_A is the object created. We assign the value 20 to number_of_patients_in_ward_A using the symbol &lt;-. In R, the symbol &lt;- is called an object assignment operator. It comprised of a “less than” symbol &lt; and a hyphen -.\nAs a result, number_of_patients_in_ward_A holds the value of 20, which R then stored it into memory.\n\n\n\n\n\n\n\n\nSince number_of_patients_in_ward_A is stored in memory as a number, we can perform different operations such as adding and removing patients.",
     "crumbs": [
       "R Programming",
       "Getting Started"
@@ -103,29 +103,7 @@
     "href": "r_intro/r_code.html#introduction-to-r",
     "title": "Getting Started",
     "section": "",
-    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.\n\n\nLearning Goals\n\n\n\nUse functions from R.\nUnderstand objects from R.\nKnow the different data types in R.",
-    "crumbs": [
-      "R Programming",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "r_intro/r_code.html#functions",
-    "href": "r_intro/r_code.html#functions",
-    "title": "Getting Started",
-    "section": "Functions",
-    "text": "Functions\nLet’s take a look on this first line of code. Click on the button Run Code to see the output.\n\n\n\n\n\n\n\n\nYou will see that Hello R 😃 is printed to the screen.\nIn this example, print() is a function, and its job is to print whatever text we place in between the double quotes \". Try putting a different text in this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\nprint(\"Well done ! 👏\")\n\n\n\n\nFunction names are usually action words represented with an open and close parentheses () in the following form.\nbake(cake)\nIn the above example, bake() is the function and the input cake is formally called an argument of the function.\nIt is possible for a function to accept more than one arguments or no arguments at all.\nbake(cake, banana, chocolate)\nbake()\nHere is an example of a function Sys.time() which does not need an argument. It gives the current date, time and time zones value.",
-    "crumbs": [
-      "R Programming",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "r_intro/r_code.html#objects",
-    "href": "r_intro/r_code.html#objects",
-    "title": "Getting Started",
-    "section": "Objects",
-    "text": "Objects\nMost things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.\nConsider the line of code below,\nnumber_of_patients_in_ward_A &lt;- 20\nIn this example, both &lt;- and 20 are objects that R provides. The variable number_of_patients_in_ward_A is the object created. We assign the value 20 to number_of_patients_in_ward_A using the symbol &lt;-. In R, the symbol &lt;- is called an object assignment operator. It comprised of a “less than” symbol &lt; and a hyphen -.\nAs a result, number_of_patients_in_ward_A holds the value of 20, which R then stored it into memory.\n\n\n\n\n\n\n\n\nSince number_of_patients_in_ward_A is stored in memory as a number, we can perform different operations such as adding and removing patients.",
+    "text": "R is a programming language that was initially designed for statistical analysis. It later got popular among data scientists. In practice, most data science teams use a mix of programming languages, often at least R and Python. Nevertheless, it is better to master one tool at a time and R is a great place to start. Keep in mind that R is not just software. There are many wonderful open communities with contributors all working to make R easier to learn and more enjoyable to use.\nLike learning a new language (spoken or computer), the initial learning curve may be steep. We hope that this section can help you climb the initial learning curve and provide you with the basic skills and self-confidence to further your experience in using R.\n\n\nLearning Goals\n\n\n\nUse functions from R.\nUnderstand objects from R.\nKnow the different data types in R.\nPerform comparisons in R\n\n\n\n\n\nLet’s take a look on this first line of code. Click on the button Run Code to see the output.\n\n\n\n\n\n\n\n\nYou will see that Hello R 😃 is printed to the screen.\nIn this example, print() is a function, and its job is to print whatever text we place in between the double quotes \". Try putting a different text in this exercise below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipFully worked solution:\n\n\n\n\n\nprint(\"Well done ! 👏\")\n\n\n\n\nFunction names are usually action words represented with an open and close parentheses () in the following form.\nbake(cake)\nIn the above example, bake() is the function and the input cake is formally called an argument of the function.\nIt is possible for a function to accept more than one arguments or no arguments at all.\nbake(cake, banana, chocolate)\nbake()\nHere is an example of a function Sys.time() which does not need an argument. It gives the current date, time and time zones value.\n\n\n\n\n\n\n\n\n\n\n\nMost things in R are an object. An R object can be almost anything, from a single number, symbol or character string (like a word) to a highly complex structure like a plot or dataset. We can create an object and assign values to the created object. A created object is sometimes called a variable.\nConsider the line of code below,\nnumber_of_patients_in_ward_A &lt;- 20\nIn this example, both &lt;- and 20 are objects that R provides. The variable number_of_patients_in_ward_A is the object created. We assign the value 20 to number_of_patients_in_ward_A using the symbol &lt;-. In R, the symbol &lt;- is called an object assignment operator. It comprised of a “less than” symbol &lt; and a hyphen -.\nAs a result, number_of_patients_in_ward_A holds the value of 20, which R then stored it into memory.\n\n\n\n\n\n\n\n\nSince number_of_patients_in_ward_A is stored in memory as a number, we can perform different operations such as adding and removing patients.",
     "crumbs": [
       "R Programming",
       "Getting Started"
@@ -143,21 +121,22 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Clinical Data Validation in R",
-    "section": "",
-    "text": "This book provides structured examples of ways to do clinical data validation using some R packages such as pointblank.\n\n\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.\n\n\n\nHere are the R packages used in this website.\n\n\n\n\n\n\n\n\n\nHere are the R platform environment used in this analysis.\n\n\n\n\n\n\n\n\n\nPhoto by Dariusz Sankowski on StockSnap.",
+    "objectID": "r_intro/r_code.html#operators",
+    "href": "r_intro/r_code.html#operators",
+    "title": "Getting Started",
+    "section": "Operators",
+    "text": "Operators\nConsider the number of patients in different wards.\n\n\n\n\n\n\n\n\n\nComparison Operators\nR has operators (&gt;, &gt;=, &lt;, &lt;=, ==, !=) to compare the relationship between two values. They usually returns TRUE or FALSE.\n\n&gt;&gt;=&lt;&lt;===!=\n\n\nThe &gt; operator means greater than.\n\n\n\n\n\n\n\n\n\n\nThe &gt;= operator means greater than or equal to.\n\n\n\n\n\n\n\n\n\n\nThe &lt; operator means less than.\n\n\n\n\n\n\n\n\n\n\nThe &lt;= operator means less than or equal to.\n\n\n\n\n\n\n\n\n\n\nThe == operator means equal to.\n\n\n\n\n\n\n\n\n\n\nThe != operator means not equal to.\n\n\n\n\n\n\n\n\n\n\n\nThese comparison operators can be used to compare each element in a vector individually.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLogical Operators\nR has logical operators (&, |, !, is.na(), isTRUE(), isFALSE(), %in%, %notin%) to compare multiple operation. They usually returns TRUE or FALSE.\n\n&|!is.na()isTRUE()isFALSE()%in%%notin%\n\n\nThe & operator means logical AND which returns TRUE if both conditions are true.\n\n\n\n\n\n\n\n\n\n\nThe | operator means logical OR which returns TRUE if at least one of the conditions is true.\n\n\n\n\n\n\n\n\n\n\nThe ! operator means logical NOT which returns TRUE if the condition is false.\n\n\n\n\n\n\n\n\n\n\nThe is.na function returns TRUE if a value is NA.\n\n\n\n\n\n\n\n\n\n\nThe isTRUE function returns TRUE for TRUE elements, FALSE for FALSE elements. Please note that this function only works in length one logical vectors. To apply this check element wise on a logical vector greater than 1, one work around is to use Vectorize.\n\n\n\n\n\n\n\n\n\n\nThe isFALSE function returns FALSE for TRUE elements, TRUE for FALSE elements.\n\n\n\n\n\n\n\n\n\n\nThe %in% operator checks if a value or set of values on the left side is present in a vector or list on the right side.\n\n\n\n\n\n\n\n\n\n\nThe %notin% operator was introduced in R version 4.6.0. It checks if a value or set of values on the left side is absent in a vector or list on the right side.",
     "crumbs": [
-      "Clinical Data Validation in R"
+      "R Programming",
+      "Getting Started"
     ]
   },
   {
     "objectID": "index.html#who-is-this-for",
     "href": "index.html#who-is-this-for",
     "title": "Clinical Data Validation in R",
-    "section": "",
-    "text": "This is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.",
+    "section": "Who is this for?",
+    "text": "Who is this for?\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.",
     "crumbs": [
       "Clinical Data Validation in R"
     ]
@@ -166,8 +145,8 @@
     "objectID": "index.html#r-packages-used",
     "href": "index.html#r-packages-used",
     "title": "Clinical Data Validation in R",
-    "section": "",
-    "text": "Here are the R packages used in this website.",
+    "section": "R Packages Used",
+    "text": "R Packages Used\nHere are the R packages used in this website.",
     "crumbs": [
       "Clinical Data Validation in R"
     ]
@@ -176,8 +155,8 @@
     "objectID": "index.html#r-platform-information",
     "href": "index.html#r-platform-information",
     "title": "Clinical Data Validation in R",
-    "section": "",
-    "text": "Here are the R platform environment used in this analysis.",
+    "section": "R Platform Information",
+    "text": "R Platform Information\nHere are the R platform environment used in this analysis.",
     "crumbs": [
       "Clinical Data Validation in R"
     ]
@@ -186,8 +165,8 @@
     "objectID": "index.html#credit",
     "href": "index.html#credit",
     "title": "Clinical Data Validation in R",
-    "section": "",
-    "text": "Photo by Dariusz Sankowski on StockSnap.",
+    "section": "Credit",
+    "text": "Credit\nPhoto by Dariusz Sankowski on StockSnap.",
     "crumbs": [
       "Clinical Data Validation in R"
     ]
@@ -197,7 +176,18 @@
     "href": "r_intro/data_wrangling.html",
     "title": "Basic Data Wrangling",
     "section": "",
-    "text": "In this session, we will go through the basic of data wrangling using a dataset from the R package medicaldata.",
+    "text": "In this session, we will go through the basic of data wrangling using the Obstetrics and Periodontal Therapy study dataset from the R package medicaldata.\nThe Obstetrics and Periodontal Therapy study was a multi-center randomized controlled trial to determine if nonsurgical periodontal treatment intervention can reduce the risk of preterm birth (&lt; 37 weeks) and low birth weight (&lt; 2500 g) outcomes.\n823 participants enrolled at 4 centers underwent stratified randomization, resulting in 413 women assigned to the treatment group and 410 to control. Treatment group consist of women treated before 21 weeks gestation (treatment) while the control consist of women treated after delivery (control). All participants were 13-16 weeks pregnant at time of randomization (baseline/visit 1).",
+    "crumbs": [
+      "R Programming",
+      "Basic Data Wrangling"
+    ]
+  },
+  {
+    "objectID": "r_intro/data_wrangling.html#exploring-the-general-data-structure",
+    "href": "r_intro/data_wrangling.html#exploring-the-general-data-structure",
+    "title": "Basic Data Wrangling",
+    "section": "Exploring the general data structure",
+    "text": "Exploring the general data structure\nThe data can be accessed from medicaldata::opt. However, we can see that using the print function alone has its limitations when the data has a large number of rows and columns.\n\n\n\n\n\n\n\n\n\n\n\nWe can start by identifying how many rows and columns medicaldata::opt has. This can be done using nrow() and ncol() respectively. The dim() function prints the numbers of rows and columns simultaneously.\n\nnrowncoldim",
     "crumbs": [
       "R Programming",
       "Basic Data Wrangling"
