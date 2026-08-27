@@ -61,3 +61,172 @@ dim(medicaldata::opt)
 ```
 
 :::
+
+Next, we can also try to identify the column names using `colnames`. Details of each column name can be found in [here](https://higgi13425.github.io/medicaldata/reference/opt.html){target="_blank"}.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: Using the colnames function
+#| label: Viewing column names in opt
+colnames(medicaldata::opt)
+```
+
+:::
+
+<br>
+
+Sometimes we just want to take a peak on specific areas of the dataset instead of printing everything on the screen. Here are some additional functions that can be useful.
+
+::: {.panel-tabset}
+
+### head
+
+The `head()` function can be used to view the first `n` rows of a dataset, where users can choose `n` any value greater than 0. By default, n is 6.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: Using the head function
+#| label: Viewing the first few number of rows in opt
+head(medicaldata::opt)
+```
+
+:::
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: Using the head function to see the first 2 rows
+#| label: Viewing the first 2 rows in opt
+head(medicaldata::opt, n = 2)
+```
+
+:::
+
+### tail
+
+The `tail()` function can be used to view the last `n` rows of a dataset, where users can choose `n` any value greater than 0. By default, n is 6.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: Using the tail function
+#| label: Viewing the last few number of rows in opt
+tail(medicaldata::opt)
+```
+
+:::
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: Using the tail function to see the last 2 rows
+#| label: Viewing the last 2 rows in opt
+tail(medicaldata::opt, n = 2)
+```
+
+:::
+
+### $
+
+The `$` can be used to access one column in a data frame. It uses the syntax.
+
+```r
+dataframe$column_name
+```
+Observe that the output is a vector.
+
+```{webr}
+#| caption: Using the $ operator to see the Age column as a vector
+#| label: accessing the first 10 rows of the Age columns as a vector
+head(medicaldata::opt$Age, n = 10)
+class(head(medicaldata::opt$Age, n = 10))
+```
+
+### []
+
+You can select elements from a data frame with the help of square brackets `[]`.
+
+In this example, we pick the first column.
+
+```{webr}
+#| caption: Using the [] operator to see the first column as a data frame
+#| label: using the [] operator to see the first column as a data frame
+head(medicaldata::opt[1], n = 5)
+class(head(medicaldata::opt[1], n = 5))
+```
+
+In this example, we pick the `Age` column.
+
+```{webr}
+#| caption: Using the [] operator to see the Age column as a data frame
+#| label: using the [] operator to see the Age column as a data frame
+head(medicaldata::opt[c("Age")])
+class(head(medicaldata::opt[c("Age")], n = 5))
+```
+
+Multiple columns can also be selected as well.
+
+In this example, we pick the first, as well as the fifth to ninth column.
+
+```{webr}
+#| caption: Using the [] operator to select multiple columns using column index
+#| label: using the [] operator to select multiple columns using column index
+head(medicaldata::opt[c(1,5:9)], n = 5)
+```
+
+In this example, we pick the columns `PID`, `Group` and `Age`.
+
+```{webr}
+#| caption: Using the [] operator to select multiple columns using column names
+#| label: using the [] operator to select multiple columns using column names
+head(medicaldata::opt[c("PID", "Group", "Age")], n = 5)
+```
+
+### [,]
+
+By using a comma, you can indicate what to select from the rows and the columns respectively.
+
+In this example, we pick rows 3, 5 to 10 and columns 1, 4 to 9.
+
+```{webr}
+#| caption: specific columns and rows using numbers
+#| label: specific columns and rows using numbers
+medicaldata::opt[c(3,5:9), c(1,4:9)]
+```
+
+Column names can also be used
+
+```{webr}
+#| caption: specific columns and rows using numbers and column names
+#| label: specific columns and rows using numbers and column names
+columns_I_want <- c("PID", "Group", "Age", "Black", "White", "Nat.Am", "Asian", "Hisp")
+medicaldata::opt[c(3,5:9), columns_I_want]
+```
+
+If columns are not specified, it means selects all columns.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: selects all columns
+#| label: selects all columns
+medicaldata::opt[c(3,5:9), ]
+```
+
+:::
+
+The same applies for rows.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: selects all row
+#| label: selects all row.
+medicaldata::opt[ ,c(1,4:9)]
+```
+
+:::
+
+:::
