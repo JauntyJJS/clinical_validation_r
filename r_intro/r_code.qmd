@@ -262,6 +262,9 @@ R has operators (`>`, `>=`, `<`, `<=`, `==`, `!=`) to compare the relationship b
 
 ::: {.panel-tabset}
 
+#### 
+&nbsp;
+
 #### >
 
 The `>` operator means greater than.
@@ -367,6 +370,9 @@ wards <= desired_capacity_each_ward
 R has logical operators (`&`, `|`, `!`, `is.na()`, `isTRUE()`, `isFALSE()`, `%in%`, `%notin%`) to compare multiple operation. They usually returns `TRUE` or `FALSE`.
 
 ::: {.panel-tabset}
+
+#### 
+&nbsp;
 
 #### &
 

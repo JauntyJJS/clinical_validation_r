@@ -5,7 +5,7 @@ format: live-html
 webr:
   packages:
     - medicaldata
-
+    - dplyr
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -16,7 +16,7 @@ The Obstetrics and Periodontal Therapy study was a multi-center randomized contr
 
 823 participants enrolled at 4 centers underwent stratified randomization, resulting in 413 women assigned to the treatment group and 410 to control. Treatment group consist of women treated before 21 weeks gestation (treatment) while the control consist of women treated after delivery (control). All participants were 13-16 weeks pregnant at time of randomization (baseline/visit 1).
 
-## Exploring the general data structure
+## General data structure
 
 The data can be accessed from `medicaldata::opt`. However, we can see that using the `print` function alone has its limitations when the data has a large number of rows and columns.
 
@@ -35,6 +35,9 @@ print(medicaldata::opt)
 We can start by identifying how many rows and columns `medicaldata::opt` has. This can be done using `nrow()` and `ncol()` respectively. The `dim()` function prints the numbers of rows and columns simultaneously.
 
 ::: {.panel-tabset}
+
+### 
+&nbsp;
 
 ### nrow
 
@@ -76,9 +79,14 @@ colnames(medicaldata::opt)
 
 <br>
 
+## Subsetting the data
+
 Sometimes we just want to take a peak on specific areas of the dataset instead of printing everything on the screen. Here are some additional functions that can be useful.
 
 ::: {.panel-tabset}
+
+### 
+&nbsp;
 
 ### head
 
@@ -228,5 +236,241 @@ medicaldata::opt[ ,c(1,4:9)]
 ```
 
 :::
+
+### [,]
+
+:::
+
+## The `|>` operator
+
+Earlier we have run the following code:
+
+```r
+class(head(medicaldata::opt[1], n = 5))
+```
+
+This line of code involves applying two functions to `medicaldata::opt[1]`.
+
+In reality, a data analysis pipeline may involve a serial chain of multiple functions.
+
+This may give rises to deeply nested parentheses (have to read from right to left) like
+
+```r
+processed_data <- task_3(task_2(task_1(data)))
+```
+
+or numerous temporary variables (have to read in a z-shaped manner)
+
+```r
+data_after_task_1 <- task_1(data)
+data_after_task_2 <- task_2(data_after_task_1)
+processed_data <- task_3(data_after_task_2)
+```
+which can be hard to read and debug, especially when it gives an error on a new dataset.
+
+To increase code readability and inspired by the [pipe operator `|` in Linux](https://www.geeksforgeeks.org/linux-unix/piping-in-unix-or-linux/){target="_blank"}, R 4.1.0 introduced a native pipe operator `|>` such that the above code can be rewritten as a form that can be read from left to right
+
+```r
+processed_data <- data |> task_1() |> task_2() |> task_3()
+```
+
+or top to bottom like a pipeline.
+
+```r
+processed_data <- data |> 
+  task_1() |> 
+  task_2() |> 
+  task_3()
+```
+
+Coming back to
+
+```r
+class(head(medicaldata::opt[1], n = 5))
+```
+
+it can be rewritten as the follows:
+
+```{webr}
+#| caption: R native pipe example
+#| label: R native pipe example
+medicaldata::opt[1] |> 
+  head(n = 5) |> 
+  class()
+```
+
+## Using `dplyr`
+
+Data wrangling involves transforming the data into a format that is more appropriate and valuable for further downstream analysis. This process may involve creating new columns, choosing specific rows or columns that satisfy a specific condition.
+
+The R package [`dplyr`](https://dplyr.tidyverse.org/){target="_blank"} provides some functions that makes this process easier.
+
+::: {.panel-tabset}
+
+### 
+&nbsp;
+
+### dplyr::select
+
+[`dplyr::select`](https://dplyr.tidyverse.org/reference/select.html){target="_blank"} is used to choose columns based on a condition.
+
+```{webr}
+#| caption: select column names
+#| label: select column names
+medicaldata::opt |> 
+  dplyr::select(c("PID", "Group", "Age")) |> 
+  head(n = 5)
+```
+
+If an external vector needs to used, you can use [`dplyr::all_of`](https://tidyselect.r-lib.org/reference/all_of.html){target="_blank"} or [`dplyr::any_of`](https://tidyselect.r-lib.org/reference/all_of.html){target="_blank"}
+
+```{webr}
+#| caption: select column names using external vector
+#| label: select column names using external vector
+columns_I_want <- c("PID", "Group", "Age", "Black", "White", "Nat.Am", "Asian", "Hisp")
+medicaldata::opt |> 
+  dplyr::select(dplyr::all_of(columns_I_want)) |> 
+  head(n = 5)
+```
+
+This is useful if we need to ensure that certain columns exists when the dataset has been updated to a new version.
+
+```{webr}
+#| caption: select column names with invalid names using all_of
+#| label: select column names with invalid names using all_of
+#| error: true
+columns_I_want <- c("PID", "Group", "Ages", "Hisps")
+medicaldata::opt |> 
+  dplyr::select(dplyr::all_of(columns_I_want)) |> 
+  head(n = 5)
+```
+
+```{webr}
+#| caption: select column names with invalid names using any_of
+#| label: select column names with invalid names using any_of
+columns_I_want <- c("PID", "Group", "Ages", "Hisps")
+medicaldata::opt |> 
+  dplyr::select(dplyr::any_of(columns_I_want)) |> 
+  head(n = 5)
+```
+
+The [documentation](https://dplyr.tidyverse.org/reference/select.html){target="_blank"} indicates many helper function that you can use that can hep you pick very specific columns.
+
+Below is an example using [`dplyr::starts_with`](https://tidyselect.r-lib.org/reference/starts_with.html){target="_blank"} and [`dplyr::ends_with`](https://tidyselect.r-lib.org/reference/starts_with.html){target="_blank"}.
+
+```{webr}
+#| caption: select column names that starts with BL
+#| label: select column names that starts with BL
+#| error: true
+medicaldata::opt |> 
+  dplyr::select(
+    c("PID"),
+    dplyr::starts_with("BL") & dplyr::ends_with("PG")
+  ) |> 
+  head(n = 5)
+```
+
+### dplyr::filter
+
+[`dplyr::filter`](https://dplyr.tidyverse.org/reference/filter.html){target="_blank"} is used to choose rows based on a condition. Please note that [`dplyr::filter`](https://dplyr.tidyverse.org/reference/filter.html){target="_blank"} treats `NA` as FALSE and drops them.
+
+To choose a column in the dataset using the pipe `|>` operator, we can use the syntax `.data[[{column_name}]]` to subset a column from a data frame using a character string or column_name as a variable is stored as a string like `column_name <- "Hisp"`
+
+Below is an example to pick participants who are Hispanic or has a value of `Yes` in the `Hisp` column.
+
+```{webr}
+#| caption: filter by Hispanic
+#| label: filter by Hispanic
+medicaldata::opt |> 
+  dplyr::select(
+    dplyr::all_of(c("PID", "Hisp"))
+  ) |> 
+  dplyr::filter(
+    .data[["Hisp"]] == "Yes"
+  )|> 
+  head(n = 5)
+```
+
+Here is an example with the use of comparison operators to keep participants between 20 and 60 who have a non-missing value in the `BMI` column.
+
+```{webr}
+#| caption: filter by age and bmi
+#| label: filter by age and bmi
+medicaldata::opt |> 
+  dplyr::select(
+    c("PID", "Age", "BMI")
+  ) |> 
+  dplyr::filter(
+    .data[["Age"]] >= 20 & 
+    .data[["Age"]] <= 60 &
+    !is.na(.data[["BMI"]])
+  ) |> 
+  head(n = 10)
+```
+
+### dplyr::filter_out
+
+[`dplyr::filter_out`](https://dplyr.tidyverse.org/reference/filter.html){target="_blank"} is used to drop rows based on a condition. Please note that [`dplyr::filter_out`](https://dplyr.tidyverse.org/reference/filter.html){target="_blank"} treats `NA` as FALSE but keeps them.
+
+We can take a look at the difference using the column `BMI` which has missing values to see its usefulness.
+
+Suppose we want to only remove participants with BMI above 25, if we use [`dplyr::filter`](https://dplyr.tidyverse.org/reference/filter.html){target="_blank"} like below.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: filter bmi over 25 wrongly
+#| label: filter bmi over 25 wrongly
+medicaldata::opt |> 
+  dplyr::select(c("PID", "Age", "BMI")) |> 
+  dplyr::filter(
+    .data[["BMI"]] <= 25
+  )
+```
+
+:::
+
+We most likely forget to take those with missing BMI into consideration and remove them by mistake... until someone else tells you that the number remaining should be `r nrow(medicaldata::opt) - sum(medicaldata::opt$BMI > 25, na.rm = TRUE)` using the R code
+
+```r
+nrow(medicaldata::opt) - sum(medicaldata::opt$BMI > 25, na.rm = TRUE)
+```
+
+One workaround is add an additional condition to keep participants with missing BMI.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: filter bmi over 25 correctly with filter
+#| label: filter bmi over 25 correctly with filter
+medicaldata::opt |> 
+  dplyr::select(c("PID", "Age", "BMI")) |> 
+  dplyr::filter(
+    .data[["BMI"]] <= 25 | is.na(.data[["BMI"]])
+  )
+```
+
+:::
+
+<br>
+
+But with [`dplyr::filter_out`](https://dplyr.tidyverse.org/reference/filter.html){target="_blank"}, things are much more clearer.
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: filter bmi over 25 correctly using filter_out
+#| label: filter bmi over 25 correctly using filter_out
+medicaldata::opt |> 
+  dplyr::select(c("PID", "Age", "BMI")) |> 
+  dplyr::filter_out(
+    .data[["BMI"]] > 25
+  ) |> 
+  nrow()
+```
+
+:::
+
+<br>
 
 :::
