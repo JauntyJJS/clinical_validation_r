@@ -465,8 +465,7 @@ medicaldata::opt |>
   dplyr::select(c("PID", "Age", "BMI")) |> 
   dplyr::filter_out(
     .data[["BMI"]] > 25
-  ) |> 
-  nrow()
+  )
 ```
 
 :::
