@@ -12,11 +12,26 @@ webr:
 
 In this session, we will go through the basic of data wrangling using the [Obstetrics and Periodontal Therapy study dataset](https://higgi13425.github.io/medicaldata/reference/opt.html){target="_blank"} from the R package [`medicaldata`](https://higgi13425.github.io/medicaldata/){target="_blank"}.
 
+:::{.goals}
+
+::::{.goals-header}
+Learning Goals
+::::
+
+::::{.goals-container}
+  * Identify the overall data structure. 
+  * Using R to view the data by subsetting.
+  * Introducing the R native pipe operator `|>`.
+  * Using R package [`dplyr`](https://dplyr.tidyverse.org/){target="_blank"} to perfrom simple data wrangling.
+::::
+
+:::
+
 The Obstetrics and Periodontal Therapy study was a multi-center randomized controlled trial to determine if nonsurgical periodontal treatment intervention can reduce the risk of preterm birth (< 37 weeks) and low birth weight (< 2500 g) outcomes. 
 
 823 participants enrolled at 4 centers underwent stratified randomization, resulting in 413 women assigned to the treatment group and 410 to control. Treatment group consist of women treated before 21 weeks gestation (treatment) while the control consist of women treated after delivery (control). All participants were 13-16 weeks pregnant at time of randomization (baseline/visit 1).
 
-## General data structure
+## Overall data structure
 
 The data can be accessed from `medicaldata::opt`. However, we can see that using the `print` function alone has its limitations when the data has a large number of rows and columns.
 
@@ -303,7 +318,7 @@ medicaldata::opt[1] |>
 
 Data wrangling involves transforming the data into a format that is more appropriate and valuable for further downstream analysis. This process may involve creating new columns, choosing specific rows or columns that satisfy a specific condition.
 
-The R package [`dplyr`](https://dplyr.tidyverse.org/){target="_blank"} provides some functions that makes this process easier.
+The R package [`dplyr`](https://dplyr.tidyverse.org/){target="_blank"} provides some functions that makes this process easier. Below are some of the commonly used functions.
 
 ::: {.panel-tabset}
 
@@ -471,5 +486,95 @@ medicaldata::opt |>
 :::
 
 <br>
+
+### dplyr::case_when
+
+[`dplyr::case_when`](https://dplyr.tidyverse.org/reference/case-and-replace-when.html){target="_blank"} allows one for a given vector to check for multiple conditions and assign different values for each case. Below is the common use syntax.
+
+```r
+dplyr::case_when(
+  condition_1 ~ result_1,    # Give result_1 if condition_1 is TRUE
+  condition_2 ~ result_2,    # Give result_2 if condition_2 is TRUE & condition_1 is FALSE
+  condition_3 ~ result_3,    # Give result_3 if condition_3 is TRUE & both condition_1 and condition_2 are FALSE
+  .default = default_result  # Give default_result if none of the conditions above are TRUE
+)
+```
+Let us look at the first ten BMI data as an example.
+
+```{webr}
+#| caption: create bmi data
+#| label: create bmi data
+#| envir: create bmi data for case when
+#| autorun: true
+bmi_data <- data.frame(
+  id = medicaldata::opt$PID[1:10],
+  bmi = medicaldata::opt$BMI[1:10]
+)
+
+bmi_data
+```
+
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: grouping bmi using case_when
+#| label: grouping bmi using case_when
+#| envir: create bmi data for case when
+dplyr::case_when(
+  is.na(bmi_data[["bmi"]]) ~ "Missing",
+  bmi_data[["bmi"]] <= 20 ~ "20 and below",
+  bmi_data[["bmi"]] >= 21 &  bmi_data[["bmi"]] <= 25 ~ "21 to 25",
+  .default = "Not allocated Yet"
+)
+```
+
+<br>
+
+:::
+
+### dplyr::mutate
+
+[`dplyr::mutate`](https://dplyr.tidyverse.org/reference/mutate.html){target="_blank"} can be used to add new columns or update existing ones.
+
+The below example shows new columns `age_in_ten_years` and `bmi_group` are created.
+
+```{webr}
+#| caption: create bmi and age data
+#| label: create bmi and age data
+#| envir: create bmi and age data for mutate
+#| autorun: true
+bmi_age_data <- data.frame(
+  id = medicaldata::opt$PID[1:10],
+  age = medicaldata::opt$Age[1:10],
+  bmi = medicaldata::opt$BMI[1:10]
+)
+
+bmi_age_data
+```
+
+::: {.scrollable-output}
+
+```{webr}
+#| caption: create new columns using mutate
+#| label: create new columns using mutate
+#| envir: create bmi and age data for mutate
+bmi_age_data <- bmi_age_data |> 
+  dplyr::mutate(
+    age_in_ten_years = .data[["age"]] + 10,
+    bmi_group = dplyr::case_when(
+      is.na(.data[["bmi"]]) ~ "Missing",
+      .data[["bmi"]] <= 20 ~ "20 and below",
+      .data[["bmi"]] >= 21 &  .data[["bmi"]] <= 25 ~ "21 to 25",
+      .default = "Not allocated Yet"
+    )
+  )  
+
+bmi_age_data
+```
+
+<br>
+
+:::
 
 :::
