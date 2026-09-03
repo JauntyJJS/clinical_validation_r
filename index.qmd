@@ -2,22 +2,6 @@
 title: "Clinical Data Validation in R"
 subtitle: "A guide on how to do clinical data validation using some R packages."
 author: "Jeremy Selva"
-format: live-html
-webr:
-  packages:
-    - sessioninfo
-    - fs
-    # - quarto
-    - tibble
-    - dplyr
-    - tidyr
-    - purrr
-    # - forcats
-    # - glue
-    # - readxl
-    - checkmate
-    - reactable
-    - pointblank
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -25,7 +9,7 @@ webr:
 
 # Preface {.unnumbered}
 
-This book provides structured examples of ways to do clinical data validation using some R packages such as [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"}.
+This website provides structured examples of ways to do clinical data validation using some R packages such as [`pointblank`](https://rstudio.github.io/pointblank/){target="_blank"}.
 
 ## Who is this for?
 
