@@ -46,7 +46,6 @@ Consider this data set `age_dataset` consisting of the patient's age printed usi
 #| envir: introduction
 #| label: small age data set
 #| echo: false
-
 age_dataset <- tibble::tribble(
   ~`Patient ID`, ~`Age`, ~`Age Invalid`,
     "Patient 1",     69,           -1,
@@ -143,7 +142,6 @@ We can use the [`get_agent_report()`](https://rstudio.github.io/pointblank/refer
 ```{webr}
 #| envir: introduction
 #| label: small age data set report agent
-
 agent |> 
   pointblank::get_agent_report(
     title = "Validation of `age_dataset`",
@@ -170,7 +168,6 @@ After data validation, you may want to split the data that pass and fail the val
 ```{webr}
 #| envir: introduction
 #| label: small age data see pass
-
 agent |> 
   pointblank::get_sundered_data(
     type = "pass"
@@ -181,7 +178,6 @@ agent |>
 ```{webr}
 #| envir: introduction
 #| label: small age data see fail
-
 agent |> 
   pointblank::get_sundered_data(
     type = "fail"
