@@ -268,15 +268,16 @@ eyJhdHRyIjp7ImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6Indl
 <p>This website provides structured examples of ways to do clinical data validation using some R packages such as <a href="https://rstudio.github.io/pointblank/" target="_blank"><code>pointblank</code></a>.</p>
 <section id="who-is-this-for" class="level2">
 <h2 class="anchored" data-anchor-id="who-is-this-for">Who is this for?</h2>
-<p>This is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.</p>
+<p>This is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the data validation examples should make sense.</p>
+<p>Nevertheless, a small R refresher tutorial section is also provided.</p>
 </section>
 <section id="r-packages-used" class="level2">
 <h2 class="anchored" data-anchor-id="r-packages-used">R Packages Used</h2>
 <p>Here are the R packages used in this website.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="reactable html-widget html-fill-item" id="htmlwidget-809b03afc73d3b0caf39" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-809b03afc73d3b0caf39">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"package":["checkmate","dplyr","fs","pointblank","purrr","reactable","sessioninfo","tibble","tidyr"],"version":["2.3.4","1.2.1","2.1.0","0.12.4","1.2.2","0.4.5","1.2.4","3.3.1","1.3.2"],"date":["2026-02-03","2026-04-03","2026-04-18","2026-07-21","2026-04-10","2025-12-01","2026-06-04","2026-01-11","2025-12-19"],"source":["RSPM","RSPM","RSPM","RSPM","RSPM","RSPM","RSPM","RSPM","CRAN (R 4.6.0)"]},"columns":[{"id":"package","name":"package","type":"character"},{"id":"version","name":"version","type":"character"},{"id":"date","name":"date","type":"character"},{"id":"source","name":"source","type":"character"}],"defaultPageSize":5,"dataKey":"4819e9449242c0f08b05d7d63869c6dd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-c8d50d2936ad70cdb4dd" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c8d50d2936ad70cdb4dd">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"package":["checkmate","dplyr","fs","pointblank","purrr","reactable","sessioninfo","tibble","tidyr"],"version":["2.3.4","1.2.1","2.1.0","0.12.4","1.2.2","0.4.5","1.2.4","3.3.1","1.3.2"],"date":["2026-02-03","2026-04-03","2026-04-18","2026-07-21","2026-04-10","2025-12-01","2026-06-04","2026-01-11","2025-12-19"],"source":["RSPM","RSPM","RSPM","RSPM","RSPM","RSPM","RSPM","RSPM","CRAN (R 4.6.0)"]},"columns":[{"id":"package","name":"package","type":"character"},{"id":"version","name":"version","type":"character"},{"id":"date","name":"date","type":"character"},{"id":"source","name":"source","type":"character"}],"defaultPageSize":5,"dataKey":"4819e9449242c0f08b05d7d63869c6dd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -285,8 +286,8 @@ eyJhdHRyIjp7ImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6Indl
 <p>Here are the R platform environment used in this analysis.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="reactable html-widget html-fill-item" id="htmlwidget-25a3a14afa273f82df0a" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-25a3a14afa273f82df0a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"setting":["version","os","system","ui","language","collate","ctype","tz","date","pandoc","quarto","knitr"],"value":["R version 4.6.1 (2026-06-24 ucrt)","Windows 11 x64 (build 26200)","x86_64, mingw32","RTerm","(EN)","English_Singapore.utf8","English_Singapore.utf8","Asia/Singapore","2026-09-24","3.8.3 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)","1.8.21 @ C:\\PROGRA~1\\Quarto\\bin\\quarto.exe","1.52 from RSPM"]},"columns":[{"id":"setting","name":"setting","type":"character"},{"id":"value","name":"value","type":"character"}],"defaultPageSize":5,"dataKey":"f571b9cc25bebb15fe6cf791ee699260"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-703a60ba95c4c6f0e580" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-703a60ba95c4c6f0e580">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"setting":["version","os","system","ui","language","collate","ctype","tz","date","pandoc","quarto","knitr"],"value":["R version 4.6.1 (2026-06-24 ucrt)","Windows 11 x64 (build 26200)","x86_64, mingw32","RTerm","(EN)","English_Singapore.utf8","English_Singapore.utf8","Asia/Singapore","2026-09-24","3.8.3 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)","1.8.21 @ C:\\PROGRA~1\\Quarto\\bin\\quarto.exe","1.52 from RSPM"]},"columns":[{"id":"setting","name":"setting","type":"character"},{"id":"value","name":"value","type":"character"}],"defaultPageSize":5,"dataKey":"f571b9cc25bebb15fe6cf791ee699260"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>

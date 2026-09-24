@@ -13,7 +13,9 @@ This website provides structured examples of ways to do clinical data validation
 
 ## Who is this for?
 
-This is not a beginner's introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.
+This is not a beginner's introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the data validation examples should make sense.
+
+Nevertheless, a small R refresher tutorial section is also provided.
 
 ## R Packages Used
 

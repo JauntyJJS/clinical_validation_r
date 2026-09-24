@@ -136,7 +136,7 @@
     "href": "index.html#who-is-this-for",
     "title": "Clinical Data Validation in R",
     "section": "Who is this for?",
-    "text": "Who is this for?\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the examples should make sense.",
+    "text": "Who is this for?\nThis is not a beginner’s introduction to R or data programming in general, though you do not need to be an expert to understand its content If you have some familiarity with tabular clinical data, most of the data validation examples should make sense.\nNevertheless, a small R refresher tutorial section is also provided.",
     "crumbs": [
       "Clinical Data Validation in R"
     ]
