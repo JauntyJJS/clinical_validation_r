@@ -52,7 +52,7 @@ We can start by identifying how many rows and columns `medicaldata::opt` has. Th
 ::: {.panel-tabset}
 
 ### 
-&nbsp;
+Click on the different tabs.
 
 ### nrow
 
@@ -101,7 +101,7 @@ Sometimes we just want to take a peak on specific areas of the dataset instead o
 ::: {.panel-tabset}
 
 ### 
-&nbsp;
+Click on the different tabs.
 
 ### head
 
@@ -323,7 +323,7 @@ The R package [`dplyr`](https://dplyr.tidyverse.org/){target="_blank"} provides 
 ::: {.panel-tabset}
 
 ### 
-&nbsp;
+Click on the different tabs.
 
 ### dplyr::select
 

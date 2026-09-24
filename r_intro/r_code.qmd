@@ -263,7 +263,7 @@ R has operators (`>`, `>=`, `<`, `<=`, `==`, `!=`) to compare the relationship b
 ::: {.panel-tabset}
 
 #### 
-&nbsp;
+Click on the different tabs.
 
 #### >
 
@@ -372,7 +372,7 @@ R has logical operators (`&`, `|`, `!`, `is.na()`, `isTRUE()`, `isFALSE()`, `%in
 ::: {.panel-tabset}
 
 #### 
-&nbsp;
+Click on the different tabs.
 
 #### &
 
