@@ -270,7 +270,7 @@ bmi_dataset |>
 Consider using the following `preconditions` parameters
 
 *  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_50_and_above_id))}` for `col_vals_gte` 
-*  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_10_and_above_id))}` for `col_vals_lte`
+*  `preconditions = \(x) {x |> dplyr::filter(.data[["Patient ID"]] %in% c(bmi_15_and_below_id))}` for `col_vals_lte`
 
 :::
 
