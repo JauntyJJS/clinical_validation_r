@@ -12,6 +12,7 @@ webr:
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ../_extensions/r-wasm/live/_gradethis.qmd >}}
 
 ```{webr}
 #| include: false
@@ -281,7 +282,9 @@ Consider using the following `preconditions` parameters
 ::: { .callout-tip collapse="false"}
 ## Fully worked solution:
 
-```r
+```{webr}
+#| exercise: exercise_bmi
+#| solution: true
 bmi_50_and_above_id <- c("Patient 14")
 bmi_15_and_below_id <- c("Patient 16")
 
@@ -327,3 +330,9 @@ bmi_dataset |>
 :::
 
 :::
+
+```{webr}
+#| exercise: exercise_bmi
+#| check: true
+gradethis::grade_this_code()
+```
